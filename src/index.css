@@ -40,3 +40,13 @@
 :root {
     --site-name: "BendTheCurve.today";
 }
+
+/* Hide scrollbar for WebKit browsers */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+/* Hide scrollbar for Firefox */
+.hide-scrollbar {
+    scrollbar-width: none; /* Firefox */
+}

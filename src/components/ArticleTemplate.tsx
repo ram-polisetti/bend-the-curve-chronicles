@@ -78,8 +78,8 @@ export const ArticleTemplate = ({
       <div className="container mx-auto px-4">
         <div className="relative max-w-[2000px] mx-auto">
           {/* Main Content - Reduced right padding */}
-          <div className="mx-auto py-12 pl-0 pr-48">
-            <article>
+          <div className="mx-auto py-12 pl-0 pr-48 flex">
+            <article className="flex-1 overflow-y-auto">
               {/* Article Header */}
               <header className="mb-12 border-b border-black pb-8">
                 <h1 className="font-serif text-6xl text-black mb-6 leading-tight">{title}</h1>
@@ -97,79 +97,79 @@ export const ArticleTemplate = ({
                 {content}
               </div>
             </article>
-          </div>
 
-          {/* Right Sidebar - Adjusted position closer to content */}
-          <aside className="fixed right-12 top-32 w-56">
-            <div>
-              {/* Table of Contents */}
-              <div className="mb-4">
-                <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
-                  Contents
-                </h3>
-                <nav className="mt-2">
-                  {headings.map((heading) => (
-                    <a
-                      key={heading.id}
-                      href={`#${heading.id}`}
-                      className={`block py-1 border-l-2 pl-3 text-sm hover:text-black transition-colors ${
-                        activeSection === heading.id
-                          ? "border-black text-black font-medium"
-                          : "border-transparent text-gray-500"
-                      }`}
-                    >
-                      {heading.textContent}
-                    </a>
-                  ))}
-                </nav>
-              </div>
-
-              {/* In this Issue */}
-              <div className="mb-4">
-                <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
-                  In this Issue
-                </h3>
-                <div className="mt-2 space-y-2">
-                  {nextInIssue.map((article) => (
-                    <div key={article.path} className="group">
-                      <span className="text-xs uppercase tracking-wider text-gray-600">
-                        {article.category}
-                      </span>
-                      <h4 className="font-serif text-lg mt-1">
-                        <Link to={article.path} className="hover:underline">
-                          {article.title}
-                        </Link>
-                      </h4>
-                      <p className="text-sm text-gray-600 mt-1">
-                        {article.excerpt}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Related Articles */}
+            {/* Right Sidebar - Adjusted position closer to content */}
+            <aside className="fixed right-12 top-32 w-56 h-[calc(100vh-8rem)] overflow-y-auto hide-scrollbar">
               <div>
-                <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
-                  Related Stories
-                </h3>
-                <div className="mt-2 space-y-2">
-                  {relatedArticles.map((article) => (
-                    <div key={article.path}>
-                      <span className="text-xs uppercase tracking-wider text-gray-600">
-                        {article.category}
-                      </span>
-                      <h4 className="font-serif text-lg mt-1">
-                        <Link to={article.path} className="hover:underline">
-                          {article.title}
-                        </Link>
-                      </h4>
-                    </div>
-                  ))}
+                {/* Table of Contents */}
+                <div className="mb-4">
+                  <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
+                    Contents
+                  </h3>
+                  <nav className="mt-2">
+                    {headings.map((heading) => (
+                      <a
+                        key={heading.id}
+                        href={`#${heading.id}`}
+                        className={`block py-1 border-l-2 pl-3 text-sm hover:text-black transition-colors ${
+                          activeSection === heading.id
+                            ? "border-black text-black font-medium"
+                            : "border-transparent text-gray-500"
+                        }`}
+                      >
+                        {heading.textContent}
+                      </a>
+                    ))}
+                  </nav>
+                </div>
+
+                {/* In this Issue */}
+                <div className="mb-4">
+                  <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
+                    In this Issue
+                  </h3>
+                  <div className="mt-2 space-y-2">
+                    {nextInIssue.map((article) => (
+                      <div key={article.path} className="group">
+                        <span className="text-xs uppercase tracking-wider text-gray-600">
+                          {article.category}
+                        </span>
+                        <h4 className="font-serif text-lg mt-1">
+                          <Link to={article.path} className="hover:underline">
+                            {article.title}
+                          </Link>
+                        </h4>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {article.excerpt}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Related Articles */}
+                <div>
+                  <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
+                    Related Stories
+                  </h3>
+                  <div className="mt-2 space-y-2">
+                    {relatedArticles.map((article) => (
+                      <div key={article.path}>
+                        <span className="text-xs uppercase tracking-wider text-gray-600">
+                          {article.category}
+                        </span>
+                        <h4 className="font-serif text-lg mt-1">
+                          <Link to={article.path} className="hover:underline">
+                            {article.title}
+                          </Link>
+                        </h4>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </aside>
+            </aside>
+          </div>
         </div>
       </div>
     </div>
