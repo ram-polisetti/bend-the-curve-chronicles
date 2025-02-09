@@ -31,15 +31,7 @@ const App = () => {
         <div className="container mx-auto px-4">
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route
-              path="/articles/ai-human-reasoning"
-              element={
-                <div>
-                  <h1>Debug: AI Human Reasoning Route</h1>
-                  <AIHumanReasoning />
-                </div>
-              }
-            />
+            <Route path="/articles/ai-human-reasoning" element={<AIHumanReasoning />} />
             <Route path="/articles/vision-models" element={<VisionModels />} />
             <Route path="/articles/neural-networks" element={<NeuralNetworks />} />
             <Route path="/articles/deep-learning-trends" element={<DeepLearningTrends />} />

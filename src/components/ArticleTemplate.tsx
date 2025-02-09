@@ -37,26 +37,38 @@ export const ArticleTemplate = ({
   nextInIssue,
 }: ArticleTemplateProps) => {
   const [activeSection, setActiveSection] = useState<string>("");
+  const [headings, setHeadings] = useState<HTMLElement[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Extract headings from content for table of contents
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+    // Wait for content to be rendered
+    setTimeout(() => {
+      if (contentRef.current) {
+        const elements = Array.from(contentRef.current.querySelectorAll('h2'));
+        setHeadings(elements as HTMLElement[]);
+        
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setActiveSection(entry.target.id);
+              }
+            });
+          },
+          { 
+            rootMargin: '-20% 0px -80% 0px',
+            threshold: 0
           }
+        );
+
+        elements.forEach((heading) => {
+          if (heading) observer.observe(heading);
         });
-      },
-      { threshold: 0.5 }
-    );
 
-    const headings = contentRef.current?.querySelectorAll("h2");
-    headings?.forEach((heading) => observer.observe(heading));
-
-    return () => observer.disconnect();
-  }, []);
+        return () => observer.disconnect();
+      }
+    }, 100);
+  }, [content]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -94,11 +106,11 @@ export const ArticleTemplate = ({
                   Contents
                 </h3>
                 <nav className="mt-2">
-                  {Array.from(contentRef.current?.querySelectorAll("h2") || []).map((heading) => (
+                  {headings.map((heading) => (
                     <a
                       key={heading.id}
                       href={`#${heading.id}`}
-                      className={`block py-1 border-l-2 pl-3 hover:text-black transition-colors ${
+                      className={`block py-1 border-l-2 pl-3 text-sm hover:text-black transition-colors ${
                         activeSection === heading.id
                           ? "border-black text-black font-medium"
                           : "border-transparent text-gray-500"

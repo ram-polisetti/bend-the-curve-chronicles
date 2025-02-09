@@ -35,10 +35,10 @@ export const LearningCurve = () => {
             <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
             <XAxis dataKey="epoch" label={{ value: "Epochs", position: "bottom" }} />
             <YAxis label={{ value: "Error Rate", angle: -90, position: "insideLeft" }} />
-            <Tooltip 
-              contentStyle={{ 
+            <Tooltip
+              contentStyle={{
                 backgroundColor: "rgba(255, 255, 255, 0.9)",
-                border: "1px solid #C8C8C9" 
+                border: "1px solid #C8C8C9"
               }}
             />
             <Area
