@@ -1,5 +1,7 @@
 
 import { Separator } from "./ui/separator";
+import { Input } from "./ui/input";
+import { Search } from "lucide-react";
 
 export const NewsHeader = () => {
   return (
@@ -17,6 +19,19 @@ export const NewsHeader = () => {
           })}
         </p>
       </div>
+      
+      {/* Search Bar */}
+      <div className="max-w-md mx-auto mb-4">
+        <div className="relative">
+          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-newspaper-muted h-4 w-4" />
+          <Input 
+            type="search"
+            placeholder="Search articles..."
+            className="pl-8 bg-white border-newspaper-border text-newspaper-primary"
+          />
+        </div>
+      </div>
+
       <Separator className="bg-newspaper-border" />
       <nav className="flex justify-center gap-6 mt-4 text-newspaper-secondary text-sm">
         <a href="#" className="hover:text-newspaper-primary transition-colors">Latest</a>

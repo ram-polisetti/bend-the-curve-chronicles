@@ -13,11 +13,11 @@ const Index = () => {
         <NewsHeader />
         
         <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 py-8">
-          {/* Lead Story */}
-          <article className="lg:col-span-8 space-y-6 animate-fade-in">
+          {/* Lead Story - Top of F-pattern */}
+          <article className="lg:col-span-12 space-y-6 animate-fade-in">
             <Card className="p-6 bg-white border-newspaper-border">
               <span className="text-xs text-newspaper-muted uppercase tracking-wider">Featured Story</span>
-              <h2 className="font-serif text-3xl text-newspaper-primary mt-2 mb-4">Understanding Learning Curves in Machine Learning</h2>
+              <h2 className="font-serif text-4xl text-newspaper-primary mt-2 mb-4">Understanding Learning Curves in Machine Learning</h2>
               <div className="prose prose-newspaper max-w-none">
                 <p className="text-newspaper-secondary leading-relaxed line-clamp-3">
                   In the realm of machine learning, understanding how your model learns over time is crucial. 
@@ -34,8 +34,10 @@ const Index = () => {
                 </div>
               </div>
             </Card>
+          </article>
 
-            {/* Secondary Stories Grid */}
+          {/* Secondary Content - Middle of F-pattern */}
+          <div className="lg:col-span-8 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="p-6 bg-white border-newspaper-border">
                 <span className="text-xs text-newspaper-muted uppercase tracking-wider">Deep Learning</span>
@@ -61,11 +63,10 @@ const Index = () => {
                 </Link>
               </Card>
             </div>
-          </article>
+          </div>
 
-          {/* Sidebar Content */}
+          {/* Sidebar - Right side of F-pattern */}
           <aside className="lg:col-span-4 space-y-6 animate-slide-in">
-            {/* Latest Updates Section */}
             <Card className="p-6 bg-white border-newspaper-border">
               <h3 className="font-serif text-xl text-newspaper-primary mb-4">Latest Updates</h3>
               <div className="space-y-4">
@@ -83,7 +84,6 @@ const Index = () => {
               </div>
             </Card>
 
-            {/* Quick Links */}
             <Card className="p-6 bg-white border-newspaper-border">
               <h3 className="font-serif text-xl text-newspaper-primary mb-4">Popular Topics</h3>
               <ul className="space-y-4">
