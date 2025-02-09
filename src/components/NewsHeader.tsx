@@ -1,121 +1,79 @@
-
-import { useState } from "react";
-import { Separator } from "./ui/separator";
-import { Input } from "./ui/input";
+import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Button } from "./ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
-import { Label } from "./ui/label";
+import { useState } from "react";
+import { SearchModal } from "./SearchModal";
 
-export const NewsHeader = () => {
-  const [showLookup, setShowLookup] = useState(false);
+interface NewsHeaderProps {
+  isArticlePage?: boolean;
+}
 
-  // Calculate volume and issue number based on date
-  const calculateVolumeAndIssue = () => {
-    const startDate = new Date('2025-03-01');
-    const currentDate = new Date();
-    
-    // Calculate the difference in days
-    const diffTime = Math.abs(currentDate.getTime() - startDate.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    // Volume increases every year (365 days)
-    const volume = Math.floor(diffDays / 365) + 1;
-    
-    // Issue number increases every day
-    const issueNumber = (diffDays % 365) + 1;
-    
-    return { volume, issueNumber };
-  };
-
-  const { volume, issueNumber } = calculateVolumeAndIssue();
+export const NewsHeader = ({ isArticlePage = false }: NewsHeaderProps) => {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
-    <header className="py-8 px-4 animate-fade-in">
-      <div className="text-center mb-6">
-        <h1 className="font-serif text-4xl md:text-6xl text-newspaper-primary tracking-tight">
-          BENDTHECURVE.TODAY
-        </h1>
-        <div className="flex justify-center items-center gap-4 font-serif text-newspaper-secondary mt-2 text-sm">
-          <p>
-            VOL. {volume} NO. {issueNumber}
-          </p>
-          <span>|</span>
-          <p>
-            {new Date().toLocaleDateString('en-US', { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}
-          </p>
-          <span>|</span>
-          <Button 
-            variant="link" 
-            className="text-newspaper-secondary hover:text-newspaper-primary p-0 h-auto"
-            onClick={() => setShowLookup(true)}
-          >
-            Look up past issues
-          </Button>
-        </div>
-      </div>
-      
-      {/* Search Bar */}
-      <div className="max-w-md mx-auto mb-4">
-        <div className="relative">
-          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-newspaper-muted h-4 w-4" />
-          <Input 
-            type="search"
-            placeholder="Search articles..."
-            className="pl-8 bg-white border-newspaper-border text-newspaper-primary"
-          />
-        </div>
-      </div>
-
-      <Dialog open={showLookup} onOpenChange={setShowLookup}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Look Up Past Issues</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="volume">Volume</Label>
-                <Input
-                  id="volume"
-                  type="number"
-                  min="1"
-                  max={volume}
-                  className="mt-1"
-                  placeholder="Enter volume..."
-                />
+    <>
+      <header className={`py-4 border-b-2 border-black bg-white ${isArticlePage ? 'sticky top-0 z-50' : ''}`}>
+        <div className="container mx-auto px-4">
+          {isArticlePage ? (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-8">
+                <Link to="/" className="font-serif text-3xl text-black hover:text-gray-800">
+                  THE ML CHRONICLE
+                </Link>
+                <span className="text-xs uppercase tracking-wider text-gray-600">
+                  Vol. 1, No. 1
+                </span>
               </div>
-              <div>
-                <Label htmlFor="issue">Issue Number</Label>
-                <Input
-                  id="issue"
-                  type="number"
-                  min="1"
-                  max="365"
-                  className="mt-1"
-                  placeholder="Enter issue number..."
-                />
+              <div className="flex items-center space-x-8">
+                <nav className="flex items-center space-x-8 text-sm font-serif uppercase tracking-wider">
+                  <Link to="/" className="hover:underline">Front Page</Link>
+                  <span>|</span>
+                  <Link to="/topics" className="hover:underline">Topics</Link>
+                  <span>|</span>
+                  <Link to="/archive" className="hover:underline">Archive</Link>
+                  <span>|</span>
+                  <Link to="/about" className="hover:underline">About</Link>
+                </nav>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsSearchOpen(true)}
+                  className="hover:bg-gray-100"
+                >
+                  <Search className="h-5 w-5" />
+                </Button>
               </div>
             </div>
-            <Button className="w-full">
-              Find Issue
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+          ) : (
+            // Original large header for homepage
+            <div className="text-center space-y-4">
+              <h1 className="font-serif text-7xl text-black border-b-4 border-black pb-4 mb-4">
+                THE ML CHRONICLE
+              </h1>
+              <div className="flex justify-between items-center text-xs uppercase tracking-widest border-y border-black py-2">
+                <span>Vol. 1, No. 1</span>
+                <p>Illuminating the Path of Machine Learning Since 2024</p>
+                <span>March 16, 2024</span>
+              </div>
+              <nav className="flex justify-center space-x-8 pt-4 text-sm font-serif uppercase tracking-wider">
+                <Link to="/" className="hover:underline">Front Page</Link>
+                <span>|</span>
+                <Link to="/topics" className="hover:underline">Topics</Link>
+                <span>|</span>
+                <Link to="/archive" className="hover:underline">Archive</Link>
+                <span>|</span>
+                <Link to="/about" className="hover:underline">About</Link>
+              </nav>
+            </div>
+          )}
+        </div>
+      </header>
 
-      <Separator className="bg-newspaper-border" />
-    </header>
+      <SearchModal 
+        isOpen={isSearchOpen} 
+        onClose={() => setIsSearchOpen(false)} 
+      />
+    </>
   );
 };

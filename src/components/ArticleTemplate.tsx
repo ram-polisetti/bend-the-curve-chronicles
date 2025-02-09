@@ -1,23 +1,29 @@
-
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { NewsHeader } from "@/components/NewsHeader";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock, User } from "lucide-react";
+import { NewsHeader } from "./NewsHeader";
+import { useEffect, useRef, useState } from "react";
+
+interface RelatedArticle {
+  title: string;
+  path: string;
+  category: string;
+}
+
+interface NextInIssue {
+  title: string;
+  path: string;
+  category: string;
+  excerpt: string;
+}
 
 interface ArticleTemplateProps {
   title: string;
-  subtitle?: string;
+  subtitle: string;
   author: string;
   date: string;
   readTime: string;
   content: React.ReactNode;
-  relatedArticles?: {
-    title: string;
-    path: string;
-    category: string;
-  }[];
+  relatedArticles: RelatedArticle[];
+  nextInIssue: NextInIssue[];
 }
 
 export const ArticleTemplate = ({
@@ -28,81 +34,127 @@ export const ArticleTemplate = ({
   readTime,
   content,
   relatedArticles,
+  nextInIssue,
 }: ArticleTemplateProps) => {
+  const [activeSection, setActiveSection] = useState<string>("");
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Extract headings from content for table of contents
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const headings = contentRef.current?.querySelectorAll("h2");
+    headings?.forEach((heading) => observer.observe(heading));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-newspaper-background">
-      <div className="container mx-auto px-4">
-        <NewsHeader />
-        
-        <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 py-8">
-          {/* Article Content - Left Side */}
-          <article className="lg:col-span-8 space-y-6">
-            <Link to="/">
-              <Button variant="ghost" className="mb-4">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Home
-              </Button>
-            </Link>
-            
-            <Card className="p-8 bg-white border-newspaper-border">
-              <div className="space-y-4">
-                <h1 className="font-serif text-4xl md:text-5xl text-newspaper-primary">
-                  {title}
-                </h1>
-                {subtitle && (
-                  <p className="text-xl text-newspaper-secondary">{subtitle}</p>
-                )}
-                
-                <div className="flex items-center gap-6 text-newspaper-muted text-sm">
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4" />
-                    <span>{author}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4" />
-                    <span>{readTime}</span>
-                  </div>
-                  <span>{date}</span>
-                </div>
-                
-                <Separator className="my-6" />
-                
-                <div className="prose prose-newspaper max-w-none">
-                  {content}
-                </div>
+    <div className="min-h-screen bg-white">
+      <NewsHeader isArticlePage={true} />
+      <div className="relative max-w-[2000px] mx-auto">
+        {/* Left Sidebar - Table of Contents */}
+        <aside className="fixed left-8 top-32 w-72">
+          <div className="space-y-4">
+            <h3 className="font-serif text-lg font-bold mb-4">Contents</h3>
+            <nav className="space-y-2 text-sm">
+              {Array.from(contentRef.current?.querySelectorAll("h2") || []).map((heading) => (
+                <a
+                  key={heading.id}
+                  href={`#${heading.id}`}
+                  className={`block py-1 border-l-2 pl-3 hover:text-black transition-colors ${
+                    activeSection === heading.id
+                      ? "border-black text-black font-medium"
+                      : "border-transparent text-gray-500"
+                  }`}
+                >
+                  {heading.textContent}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <div className="mx-auto px-4 py-12 ml-80 mr-96">
+          <article>
+            {/* Article Header */}
+            <header className="mb-12 border-b border-black pb-8">
+              <h1 className="font-serif text-6xl text-black mb-6 leading-tight">{title}</h1>
+              <p className="text-2xl text-gray-700 font-serif mb-6 leading-relaxed">{subtitle}</p>
+              <div className="text-sm text-gray-600 flex items-center space-x-4">
+                <span className="font-semibold">By {author}</span>
+                <span>|</span>
+                <span>{date}</span>
+                <span>|</span>
+                <span>{readTime}</span>
               </div>
-            </Card>
+            </header>
+
+            <div className="prose prose-newspaper max-w-none" ref={contentRef}>
+              {content}
+            </div>
           </article>
-          
-          {/* Sidebar - Right Side */}
-          <aside className="lg:col-span-4 space-y-6">
-            <Card className="p-6 bg-white border-newspaper-border">
-              <h3 className="font-serif text-xl text-newspaper-primary mb-4">
-                Related Articles
+        </div>
+
+        {/* Right Sidebar */}
+        <aside className="fixed right-8 top-32 w-80">
+          <div className="space-y-12">
+            {/* In this Issue */}
+            <div className="space-y-6">
+              <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
+                In this Issue
               </h3>
-              <div className="space-y-4">
-                {relatedArticles?.map((article, index) => (
-                  <div key={index}>
-                    <span className="text-xs text-newspaper-muted uppercase">
+              <div className="space-y-6">
+                {nextInIssue.map((article) => (
+                  <div key={article.path} className="group">
+                    <span className="text-xs uppercase tracking-wider text-gray-600">
                       {article.category}
                     </span>
-                    <Link 
-                      to={article.path}
-                      className="block hover:text-newspaper-primary transition-colors"
-                    >
-                      <h4 className="text-newspaper-secondary font-medium mt-1">
+                    <h4 className="font-serif text-lg mt-1">
+                      <Link to={article.path} className="hover:underline">
                         {article.title}
-                      </h4>
-                    </Link>
-                    {index < (relatedArticles.length - 1) && (
-                      <Separator className="my-4" />
-                    )}
+                      </Link>
+                    </h4>
+                    <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+                      {article.excerpt}
+                    </p>
                   </div>
                 ))}
               </div>
-            </Card>
-          </aside>
-        </main>
+            </div>
+
+            {/* Related Articles */}
+            <div className="space-y-6">
+              <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
+                Related Stories
+              </h3>
+              <div className="space-y-6">
+                {relatedArticles.map((article) => (
+                  <div key={article.path}>
+                    <span className="text-xs uppercase tracking-wider text-gray-600">
+                      {article.category}
+                    </span>
+                    <h4 className="font-serif text-lg mt-1">
+                      <Link to={article.path} className="hover:underline">
+                        {article.title}
+                      </Link>
+                    </h4>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );
