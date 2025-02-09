@@ -44,9 +44,9 @@ export const ArticleTemplate = ({
     // Wait for content to be rendered
     setTimeout(() => {
       if (contentRef.current) {
-        const elements = Array.from(contentRef.current.querySelectorAll('h2'));
+        const elements = Array.from(contentRef.current.querySelectorAll('h2, h3'));
         setHeadings(elements as HTMLElement[]);
-        
+
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
@@ -55,9 +55,9 @@ export const ArticleTemplate = ({
               }
             });
           },
-          { 
-            rootMargin: '-20% 0px -80% 0px',
-            threshold: 0
+          {
+            rootMargin: '0px 0px -80% 0px', // Adjusted for better responsiveness
+            threshold: 0.1, // Trigger when 10% of the heading is visible
           }
         );
 
@@ -69,6 +69,29 @@ export const ArticleTemplate = ({
       }
     }, 100);
   }, [content]);
+
+  // Mouse position tracking
+  const handleMouseMove = (event: MouseEvent) => {
+    if (contentRef.current) {
+      const headings = Array.from(contentRef.current.querySelectorAll('h2, h3'));
+      headings.forEach((heading) => {
+        const rect = heading.getBoundingClientRect();
+        if (event.clientY >= rect.top && event.clientY <= rect.bottom) {
+          setActiveSection(heading.id);
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  console.log("Headings:", headings); // Check if headings are set correctly
+  console.log("Active Section:", activeSection); // Check if active section is being updated
 
   const siteName = "BendTheCurve.today";
 

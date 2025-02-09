@@ -50,3 +50,7 @@
 .hide-scrollbar {
     scrollbar-width: none; /* Firefox */
 }
+
+h2, h3 {
+    scroll-margin-top: 1rem; /* Adjust as needed */
+}
