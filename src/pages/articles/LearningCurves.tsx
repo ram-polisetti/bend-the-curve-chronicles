@@ -51,19 +51,19 @@ const LearningCurves = () => {
       content={
         <>
           <p>
-            In the realm of machine learning, understanding how your model learns over time is crucial. 
-            Learning curves provide invaluable insights into your model's performance and help identify 
+            In the realm of machine learning, understanding how your model learns over time is crucial.
+            Learning curves provide invaluable insights into your model's performance and help identify
             potential issues such as overfitting or underfitting.
           </p>
-          
+
           <h2 id="what-is-learning-curve">What is a Learning Curve?</h2>
           <p>
-            A learning curve is a plot that shows how the model's performance changes as it sees more training data. 
+            A learning curve is a plot that shows how the model's performance changes as it sees more training data.
             It helps us understand if our model is learning effectively and if we need more data or different approaches.
           </p>
-          
+
           <LearningCurve />
-          
+
           <h2 id="interpreting-curves">Interpreting Learning Curves</h2>
           <p>
             The shape of a learning curve can tell us a lot about our model's behavior:
@@ -73,7 +73,7 @@ const LearningCurves = () => {
             <li>High error in both training and validation suggests underfitting</li>
             <li>Parallel curves with small gap suggest good fit</li>
           </ul>
-          
+
           <h2 id="best-practices">Best Practices</h2>
           <p>
             When analyzing learning curves, consider these key points:
@@ -84,11 +84,11 @@ const LearningCurves = () => {
             <li>Consider multiple performance metrics</li>
             <li>Look for convergence patterns</li>
           </ul>
-          
+
           <h2 id="conclusion">Conclusion</h2>
           <p>
-            Learning curves are essential tools in the machine learning practitioner's toolkit. 
-            They help us make informed decisions about model selection, hyperparameter tuning, 
+            Learning curves are essential tools in the machine learning practitioner's toolkit.
+            They help us make informed decisions about model selection, hyperparameter tuning,
             and data collection strategies.
           </p>
         </>
