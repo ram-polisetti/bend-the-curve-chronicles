@@ -3,7 +3,7 @@ import { ArticleTemplate } from "@/components/ArticleTemplate";
 const AIEthics = () => {
   return (
     <ArticleTemplate
-      title="Navigating AI Ethics in 2024"
+      title="BendTheCurve.today: AI Ethics"
       subtitle="Understanding and addressing ethical challenges in AI"
       author="David Kim"
       date="March 26, 2024"
@@ -68,4 +68,4 @@ const AIEthics = () => {
   );
 };
 
-export default AIEthics; 
+export default AIEthics;

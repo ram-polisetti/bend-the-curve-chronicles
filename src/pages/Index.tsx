@@ -1,6 +1,8 @@
 import { NewsHeader } from "@/components/NewsHeader";
 import { Link } from "react-router-dom";
 
+const welcomeMessage = "Welcome to BendTheCurve.today";
+
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">

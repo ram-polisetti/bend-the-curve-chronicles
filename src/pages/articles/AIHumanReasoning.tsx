@@ -2,6 +2,7 @@ import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIHumanReasoning = () => {
   console.log("AIHumanReasoning component rendering");
+  const articleTitle = "BendTheCurve.today: AI Human Reasoning";
   return (
     <ArticleTemplate
       title="AI Models Achieve Human-Level Reasoning"

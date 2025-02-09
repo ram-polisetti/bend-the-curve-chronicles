@@ -25,6 +25,8 @@ import AIEducation from "./pages/articles/AIEducation";
 import LearningCurves from "./pages/articles/LearningCurves";
 
 const App = () => {
+  const appName = "BendTheCurve.today";
+
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-white">

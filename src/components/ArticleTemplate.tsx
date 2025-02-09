@@ -70,6 +70,8 @@ export const ArticleTemplate = ({
     }, 100);
   }, [content]);
 
+  const siteName = "BendTheCurve.today";
+
   return (
     <div className="min-h-screen bg-white">
       <NewsHeader isArticlePage={true} />

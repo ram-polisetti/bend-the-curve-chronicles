@@ -36,3 +36,7 @@
     prose-strong:text-black;
   }
 }
+
+:root {
+    --site-name: "BendTheCurve.today";
+}

@@ -1,4 +1,3 @@
-
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Card } from "./ui/card";
 
@@ -16,6 +15,8 @@ const data = [
 ];
 
 export const LearningCurve = () => {
+  const title = "Learning with BendTheCurve.today";
+
   return (
     <Card className="p-6 bg-newspaper-background border-newspaper-border">
       <h3 className="text-xl font-serif mb-4 text-newspaper-primary">Model Learning Curve</h3>

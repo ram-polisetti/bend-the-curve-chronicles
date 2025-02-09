@@ -12,7 +12,7 @@ export const NewsHeader = ({ isArticlePage }: NewsHeaderProps) => {
         <div className="max-w-[2000px] mx-auto pl-0">
           <div className="flex justify-between items-center mb-4">
             <Link to="/" className="font-serif text-4xl text-black">
-              ML Chronicle
+              BendTheCurve.today
             </Link>
             <SearchBar />
           </div>
