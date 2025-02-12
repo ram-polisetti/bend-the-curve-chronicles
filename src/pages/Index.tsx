@@ -419,58 +419,26 @@ const Index = () => {
             <div className="col-span-2 pl-6">
               <h2 className="font-serif text-3xl mb-4">Latest Updates</h2>
               <div className="space-y-4">
-                <article className="border-b border-gray-200 pb-4">
-                  <Link to="/articles/automl-adoption" className="group">
-                    <h3 className="font-serif text-xl group-hover:text-gray-800">
-                      AutoML Tools See Rapid Adoption
-                    </h3>
-                    <p className="text-sm mt-1 group-hover:text-gray-700">
-                      Small businesses are increasingly adopting AutoML tools, benefiting from AI automation without the need for extensive expertise. This trend is democratizing access to advanced technologies.
-                    </p>
-                    <span className="text-sm text-black group-hover:underline mt-2 inline-block">
-                      Continue Reading →
-                    </span>
-                  </Link>
-                </article>
-                <article className="border-b border-gray-200 pb-4">
-                  <Link to="/articles/new-training-methods" className="group">
-                    <h3 className="font-serif text-xl group-hover:text-gray-800">
-                      New Training Methods Emerge
-                    </h3>
-                    <p className="text-sm mt-1 group-hover:text-gray-700">
-                      Innovative training methods are improving data efficiency by orders of magnitude, enabling faster and more effective model development. These advancements are crucial for scaling AI solutions.
-                    </p>
-                    <span className="text-sm text-black group-hover:underline mt-2 inline-block">
-                      Continue Reading →
-                    </span>
-                  </Link>
-                </article>
-                <article className="border-b border-gray-200 pb-4">
-                  <Link to="/articles/language-models" className="group">
-                    <h3 className="font-serif text-xl group-hover:text-gray-800">
-                      Language Models Break Records
-                    </h3>
-                    <p className="text-sm mt-1 group-hover:text-gray-700">
-                      Recent breakthroughs in cross-lingual understanding are setting new records for language models, enhancing their ability to process and generate text across multiple languages.
-                    </p>
-                    <span className="text-sm text-black group-hover:underline mt-2 inline-block">
-                      Continue Reading →
-                    </span>
-                  </Link>
-                </article>
-                <article className="border-b border-gray-200 pb-4">
-                  <Link to="/articles/ai-healthcare" className="group">
-                    <h3 className="font-serif text-xl group-hover:text-gray-800">
-                      AI in Healthcare
-                    </h3>
-                    <p className="text-sm mt-1 group-hover:text-gray-700">
-                      AI is revolutionizing patient diagnosis and care, offering new tools for early detection and personalized treatment plans. This technology is poised to transform healthcare delivery.
-                    </p>
-                    <span className="text-sm text-black group-hover:underline mt-2 inline-block">
-                      Continue Reading →
-                    </span>
-                  </Link>
-                </article>
+                {articles.slice(0, 4).map((article) => (
+                  <article key={article.id} className="border-b border-gray-200 pb-4">
+                    <Link to={`/articles/${article.id}`} className="group">
+                      <h3 className="font-serif text-xl group-hover:text-gray-800">
+                        {article.title}
+                      </h3>
+                      {article.subtitle && (
+                        <p className="text-sm mt-1 group-hover:text-gray-700">
+                          {article.subtitle}
+                        </p>
+                      )}
+                      <div className="text-sm text-gray-600 mt-2">
+                        {article.read_time} • {new Date(article.created_at).toLocaleDateString()}
+                      </div>
+                      <span className="text-sm text-black group-hover:underline mt-2 inline-block">
+                        Continue Reading →
+                      </span>
+                    </Link>
+                  </article>
+                ))}
               </div>
 
               <div className="mt-8 pt-6 border-t border-black">
