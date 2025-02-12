@@ -1,5 +1,9 @@
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "@/components/ui/toaster";
+import Navigation from "./components/Navigation";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
 import AIHumanReasoning from "./pages/articles/AIHumanReasoning";
 import VisionModels from "./pages/articles/VisionModels";
 import NeuralNetworks from "./pages/articles/NeuralNetworks";
@@ -25,14 +29,14 @@ import AIEducation from "./pages/articles/AIEducation";
 import LearningCurves from "./pages/articles/LearningCurves";
 
 const App = () => {
-  const appName = "BendTheCurve.today";
-
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-white">
+        <Navigation />
         <div className="container mx-auto px-4">
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
             <Route path="/articles/ai-human-reasoning" element={<AIHumanReasoning />} />
             <Route path="/articles/vision-models" element={<VisionModels />} />
             <Route path="/articles/neural-networks" element={<NeuralNetworks />} />
@@ -58,6 +62,7 @@ const App = () => {
             <Route path="/articles/learning-curves" element={<LearningCurves />} />
           </Routes>
         </div>
+        <Toaster />
       </div>
     </BrowserRouter>
   );
