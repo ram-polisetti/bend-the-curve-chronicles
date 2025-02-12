@@ -1,7 +1,6 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
-import Navigation from "./components/Navigation";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import AIHumanReasoning from "./pages/articles/AIHumanReasoning";
@@ -32,7 +31,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-white">
-        <Navigation />
         <div className="container mx-auto px-4">
           <Routes>
             <Route path="/" element={<Index />} />
