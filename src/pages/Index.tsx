@@ -1,14 +1,224 @@
+
+import { useEffect, useState } from 'react';
 import { NewsHeader } from "@/components/NewsHeader";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { User } from '@supabase/supabase-js';
+
+interface Article {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  content: string;
+  read_time: string;
+  author_id: string;
+  created_at: string;
+}
 
 const welcomeMessage = "Welcome to BendTheCurve.today";
 
 const Index = () => {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [isCreating, setIsCreating] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [formData, setFormData] = useState({
+    title: '',
+    subtitle: '',
+    content: '',
+    read_time: '5 min read'
+  });
+  const { toast } = useToast();
+
+  useEffect(() => {
+    fetchArticles();
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const fetchArticles = async () => {
+    const { data, error } = await supabase
+      .from('articles')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setArticles(data || []);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!user) {
+      toast({
+        title: "Error",
+        description: "You must be logged in to create or edit articles",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      if (editingId) {
+        const { error } = await supabase
+          .from('articles')
+          .update({
+            title: formData.title,
+            subtitle: formData.subtitle,
+            content: formData.content,
+            read_time: formData.read_time
+          })
+          .eq('id', editingId);
+
+        if (error) throw error;
+        
+        toast({
+          title: "Success",
+          description: "Article updated successfully"
+        });
+      } else {
+        const { error } = await supabase
+          .from('articles')
+          .insert([{
+            title: formData.title,
+            subtitle: formData.subtitle,
+            content: formData.content,
+            read_time: formData.read_time,
+            author_id: user.id,
+            volume: 1,
+            issue_number: 1
+          }]);
+
+        if (error) throw error;
+        
+        toast({
+          title: "Success",
+          description: "Article created successfully"
+        });
+      }
+
+      setFormData({
+        title: '',
+        subtitle: '',
+        content: '',
+        read_time: '5 min read'
+      });
+      setIsCreating(false);
+      setEditingId(null);
+      fetchArticles();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleEdit = (article: Article) => {
+    setFormData({
+      title: article.title,
+      subtitle: article.subtitle || '',
+      content: article.content,
+      read_time: article.read_time
+    });
+    setEditingId(article.id);
+    setIsCreating(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('articles')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "Article deleted successfully"
+      });
+      fetchArticles();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <NewsHeader />
       <div className="container mx-auto px-4">
         <div className="max-w-[2000px] mx-auto pl-0">
+          {user && (
+            <div className="my-6">
+              <Button 
+                onClick={() => setIsCreating(!isCreating)}
+              >
+                {isCreating ? 'Cancel' : 'Create New Article'}
+              </Button>
+            </div>
+          )}
+
+          {isCreating && (
+            <form onSubmit={handleSubmit} className="mb-8 space-y-4 max-w-2xl">
+              <Input
+                placeholder="Title"
+                value={formData.title}
+                onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                required
+              />
+              <Input
+                placeholder="Subtitle (optional)"
+                value={formData.subtitle}
+                onChange={e => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
+              />
+              <Textarea
+                placeholder="Content"
+                value={formData.content}
+                onChange={e => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                required
+                className="min-h-[200px]"
+              />
+              <Input
+                placeholder="Read time (e.g., 5 min read)"
+                value={formData.read_time}
+                onChange={e => setFormData(prev => ({ ...prev, read_time: e.target.value }))}
+                required
+              />
+              <Button type="submit">
+                {editingId ? 'Update Article' : 'Create Article'}
+              </Button>
+            </form>
+          )}
+
           {/* Main Headline */}
           <div className="border-b-2 border-black py-6">
             <span className="text-xs font-bold uppercase tracking-wider">Breaking News</span>
