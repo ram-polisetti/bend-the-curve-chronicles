@@ -48,6 +48,11 @@ export const NewsHeader = ({ isArticlePage }: NewsHeaderProps) => {
             </Link>
             <div className="flex items-center gap-4">
               <SearchBar />
+              {user && (
+                <Link to="/create-article">
+                  <Button variant="ghost">Write Article</Button>
+                </Link>
+              )}
               {user ? (
                 <Button onClick={handleSignOut} variant="ghost">
                   Sign Out

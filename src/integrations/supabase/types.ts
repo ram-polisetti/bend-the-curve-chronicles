@@ -11,39 +11,51 @@ export type Database = {
     Tables: {
       articles: {
         Row: {
+          author: string
           author_id: string
+          category: string
           content: string
           created_at: string
           id: string
           issue_number: number
+          next_in_issue: Json | null
           published_at: string
           read_time: string
+          related_articles: Json | null
           subtitle: string | null
           title: string
           updated_at: string
           volume: number
         }
         Insert: {
+          author?: string
           author_id: string
+          category?: string
           content: string
           created_at?: string
           id?: string
           issue_number: number
+          next_in_issue?: Json | null
           published_at?: string
           read_time: string
+          related_articles?: Json | null
           subtitle?: string | null
           title: string
           updated_at?: string
           volume: number
         }
         Update: {
+          author?: string
           author_id?: string
+          category?: string
           content?: string
           created_at?: string
           id?: string
           issue_number?: number
+          next_in_issue?: Json | null
           published_at?: string
           read_time?: string
+          related_articles?: Json | null
           subtitle?: string | null
           title?: string
           updated_at?: string
