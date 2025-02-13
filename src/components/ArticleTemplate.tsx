@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { NewsHeader } from "./NewsHeader";
 import { useEffect, useRef, useState } from "react";
@@ -22,6 +23,7 @@ interface ArticleTemplateProps {
   date: string;
   readTime: string;
   content: React.ReactNode;
+  inspiration: string;
   relatedArticles: RelatedArticle[];
   nextInIssue: NextInIssue[];
 }
@@ -33,6 +35,7 @@ export const ArticleTemplate = ({
   date,
   readTime,
   content,
+  inspiration,
   relatedArticles,
   nextInIssue,
 }: ArticleTemplateProps) => {
@@ -100,10 +103,8 @@ export const ArticleTemplate = ({
       <NewsHeader isArticlePage={true} />
       <div className="container mx-auto px-4">
         <div className="relative max-w-[2000px] mx-auto">
-          {/* Main Content - Reduced right padding */}
           <div className="mx-auto py-12 pl-0 pr-48 flex">
             <article className="flex-1 overflow-y-auto">
-              {/* Article Header */}
               <header className="mb-12 border-b border-black pb-8">
                 <h1 className="font-serif text-6xl text-black mb-6 leading-tight">{title}</h1>
                 <p className="text-2xl text-gray-700 font-serif mb-6 leading-relaxed">{subtitle}</p>
@@ -115,6 +116,13 @@ export const ArticleTemplate = ({
                   <span>{readTime}</span>
                 </div>
               </header>
+
+              {inspiration && (
+                <div className="mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
+                  <h3 className="text-lg font-serif font-semibold mb-2">Behind the Story</h3>
+                  <p className="text-gray-700 italic">{inspiration}</p>
+                </div>
+              )}
 
               <div className="prose prose-newspaper max-w-none" ref={contentRef}>
                 {content}

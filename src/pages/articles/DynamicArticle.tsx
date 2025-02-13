@@ -18,6 +18,7 @@ interface Article {
   category: string;
   related_articles: any | null;
   next_in_issue: any | null;
+  inspiration: string | null;
 }
 
 const DynamicArticle = () => {
@@ -163,6 +164,7 @@ const DynamicArticle = () => {
       date={formattedDate}
       readTime={article.read_time}
       content={renderContent()}
+      inspiration={article.inspiration || ""}
       relatedArticles={article.related_articles || []}
       nextInIssue={article.next_in_issue || []}
     />

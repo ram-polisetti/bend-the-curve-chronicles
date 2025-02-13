@@ -17,6 +17,7 @@ export type Database = {
           content: string
           created_at: string
           id: string
+          inspiration: string | null
           issue_number: number
           next_in_issue: Json | null
           published_at: string
@@ -34,6 +35,7 @@ export type Database = {
           content: string
           created_at?: string
           id?: string
+          inspiration?: string | null
           issue_number: number
           next_in_issue?: Json | null
           published_at?: string
@@ -51,6 +53,7 @@ export type Database = {
           content?: string
           created_at?: string
           id?: string
+          inspiration?: string | null
           issue_number?: number
           next_in_issue?: Json | null
           published_at?: string
