@@ -9,13 +9,19 @@ import MDEditor from '@uiw/react-md-editor';
 interface Article {
   id: string;
   title: string;
-  subtitle: string;
+  subtitle: string | null;
   content: string;
   read_time: string;
   author: string;
   created_at: string;
   category: string;
-  inspiration: string;
+  inspiration?: string;  // Made optional with ?
+  author_id: string;
+  published_at: string;
+  volume: number;
+  issue_number: number;
+  next_in_issue: any | null;
+  related_articles: any | null;
 }
 
 const DynamicArticle = () => {
@@ -40,7 +46,7 @@ const DynamicArticle = () => {
         return;
       }
 
-      setArticle(data);
+      setArticle(data as Article);
     };
 
     fetchArticle();
