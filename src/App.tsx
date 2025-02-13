@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import CreateArticle from "./pages/CreateArticle";
+import DynamicArticle from "./pages/articles/DynamicArticle";
 import AIHumanReasoning from "./pages/articles/AIHumanReasoning";
 import VisionModels from "./pages/articles/VisionModels";
 import NeuralNetworks from "./pages/articles/NeuralNetworks";
@@ -37,6 +38,7 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/create-article" element={<CreateArticle />} />
+            <Route path="/articles/:id" element={<DynamicArticle />} />
             <Route path="/articles/ai-human-reasoning" element={<AIHumanReasoning />} />
             <Route path="/articles/vision-models" element={<VisionModels />} />
             <Route path="/articles/neural-networks" element={<NeuralNetworks />} />
