@@ -7,12 +7,14 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import MDEditor from '@uiw/react-md-editor';
+import { Textarea } from "@/components/ui/textarea";
 
 const CreateArticle = () => {
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('general');
+  const [inspiration, setInspiration] = useState('');
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -33,7 +35,7 @@ const CreateArticle = () => {
         return;
       }
 
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('articles')
         .insert([
           {
@@ -41,14 +43,18 @@ const CreateArticle = () => {
             subtitle,
             content,
             category,
+            inspiration,
             author_id: user.id,
+            author: user.email,
             read_time: `${Math.ceil(content.split(' ').length / 200)} min read`,
             volume: 1,
             issue_number: 1,
             related_articles: [],
             next_in_issue: []
           }
-        ]);
+        ])
+        .select()
+        .single();
 
       if (error) throw error;
 
@@ -57,7 +63,7 @@ const CreateArticle = () => {
         description: "Article created successfully"
       });
       
-      navigate('/');
+      navigate(`/articles/${data.id}`);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -105,6 +111,14 @@ const CreateArticle = () => {
                 <option value="ethics">Ethics in AI</option>
                 <option value="research">Research</option>
               </select>
+            </div>
+            <div>
+              <Textarea
+                placeholder="What inspired you to write this article? Share your motivation and the challenges you faced."
+                value={inspiration}
+                onChange={(e) => setInspiration(e.target.value)}
+                className="min-h-[100px]"
+              />
             </div>
             <div className="min-h-[500px]">
               <MDEditor
