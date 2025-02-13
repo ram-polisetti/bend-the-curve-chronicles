@@ -5,6 +5,7 @@ import { ArticleTemplate } from '@/components/ArticleTemplate';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Article {
   id: string;
@@ -25,6 +26,7 @@ const DynamicArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -89,6 +91,70 @@ const DynamicArticle = () => {
     day: 'numeric'
   });
 
+  const renderContent = () => {
+    const paragraphs = article.content.split('\n\n');
+    
+    if (isMobile) {
+      // Single column layout for mobile
+      return (
+        <div className="prose prose-lg max-w-none">
+          {paragraphs.map((paragraph, index) => {
+            if (paragraph.startsWith('##')) {
+              const headingText = paragraph.replace('##', '').trim();
+              const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+              return <h2 key={index} id={headingId} className="text-2xl font-serif mt-8 mb-4">{headingText}</h2>;
+            } else if (paragraph.startsWith('-')) {
+              const items = paragraph.split('\n').map(item => item.replace('-', '').trim());
+              return (
+                <ul key={index} className="list-disc pl-6 my-4">
+                  {items.map((item, itemIndex) => (
+                    <li key={itemIndex} className="my-2">{item}</li>
+                  ))}
+                </ul>
+              );
+            } else {
+              return <p key={index} className="my-4">{paragraph}</p>;
+            }
+          })}
+        </div>
+      );
+    }
+
+    // Multi-column layout for desktop
+    return (
+      <div className="columns-2 gap-8 prose prose-lg max-w-none">
+        {paragraphs.map((paragraph, index) => {
+          if (paragraph.startsWith('##')) {
+            const headingText = paragraph.replace('##', '').trim();
+            const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            return (
+              <div key={index} className="break-inside-avoid-column mb-6">
+                <h2 id={headingId} className="text-2xl font-serif mt-8 mb-4">{headingText}</h2>
+              </div>
+            );
+          } else if (paragraph.startsWith('-')) {
+            const items = paragraph.split('\n').map(item => item.replace('-', '').trim());
+            return (
+              <div key={index} className="break-inside-avoid-column mb-6">
+                <ul className="list-disc pl-6 my-4">
+                  {items.map((item, itemIndex) => (
+                    <li key={itemIndex} className="my-2">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            );
+          } else {
+            return (
+              <p key={index} className="break-inside-avoid-column mb-6">
+                {paragraph}
+              </p>
+            );
+          }
+        })}
+      </div>
+    );
+  };
+
   return (
     <ArticleTemplate
       title={article.title}
@@ -96,31 +162,7 @@ const DynamicArticle = () => {
       author={article.author}
       date={formattedDate}
       readTime={article.read_time}
-      content={
-        <div className="prose prose-lg max-w-none">
-          {article.content.split('\n\n').map((paragraph, index) => {
-            if (paragraph.startsWith('##')) {
-              // Handle h2 headings
-              const headingText = paragraph.replace('##', '').trim();
-              const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-              return <h2 key={index} id={headingId}>{headingText}</h2>;
-            } else if (paragraph.startsWith('-')) {
-              // Handle unordered lists
-              const items = paragraph.split('\n').map(item => item.replace('-', '').trim());
-              return (
-                <ul key={index} className="list-disc pl-6">
-                  {items.map((item, itemIndex) => (
-                    <li key={itemIndex}>{item}</li>
-                  ))}
-                </ul>
-              );
-            } else {
-              // Regular paragraphs
-              return <p key={index}>{paragraph}</p>;
-            }
-          })}
-        </div>
-      }
+      content={renderContent()}
       relatedArticles={article.related_articles || []}
       nextInIssue={article.next_in_issue || []}
     />
