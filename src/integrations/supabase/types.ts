@@ -61,15 +61,7 @@ export type Database = {
           updated_at?: string
           volume?: number
         }
-        Relationships: [
-          {
-            foreignKeyName: "articles_author_id_fkey"
-            columns: ["author_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       profiles: {
         Row: {
