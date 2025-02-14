@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { NewsHeader } from "@/components/NewsHeader";
 import { Link } from "react-router-dom";
@@ -22,7 +21,7 @@ interface ArticleRelationship {
 }
 
 interface ArticleWithRelationships extends Article {
-  article_relationships: ArticleRelationship[];
+  article_relationships: ArticleRelationship[] | null;
 }
 
 interface ArticleWithDifficulty extends Article {
@@ -54,29 +53,24 @@ const Index = () => {
   const fetchArticles = async () => {
     let query = supabase
       .from('articles')
-      .select(`
-        *,
-        article_relationships (
-          target_article_id,
-          relationship_type
-        )
-      `)
+      .select('*, article_relationships(target_article_id, relationship_type)')
       .order('created_at', { ascending: false });
 
     if (selectedCategory !== 'all') {
       query = query.eq('category', selectedCategory);
     }
 
-    const { data, error } = await query;
+    const { data: rawData, error } = await query;
 
     if (error) {
       console.error('Error fetching articles:', error);
       return;
     }
 
-    // Process articles to determine difficulty levels and prerequisites
-    const processedArticles = (data as ArticleWithRelationships[]).map(article => {
-      const prerequisites = article.article_relationships
+    // Safely type and process the data
+    const processedArticles = (rawData || []).map(article => {
+      const articleData = article as unknown as ArticleWithRelationships;
+      const prerequisites = articleData.article_relationships
         ?.filter(rel => rel.relationship_type === 'prerequisite')
         ?.map(rel => rel.target_article_id) || [];
 
@@ -93,7 +87,7 @@ const Index = () => {
         ...article,
         difficulty_level: difficultyLevel,
         prerequisites
-      };
+      } as ArticleWithDifficulty;
     });
 
     // Sort articles by difficulty level and creation date
