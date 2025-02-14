@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const NewTrainingMethods = () => {
@@ -8,6 +9,7 @@ const NewTrainingMethods = () => {
       author="Samuel Murphy"
       date="April 3, 2024"
       readTime="7 min read"
+      inspiration="Through my research in optimization techniques, I've discovered innovative ways to train neural networks more efficiently. I'm sharing these methods to help advance the field of AI development."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const NewTrainingMethods = () => {
   );
 };
 
-export default NewTrainingMethods; 
+export default NewTrainingMethods;

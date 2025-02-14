@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const ICMLKeynotes = () => {
@@ -8,6 +9,7 @@ const ICMLKeynotes = () => {
       author="Daniel Kim"
       date="April 9, 2024"
       readTime="5 min read"
+      inspiration="Having attended ICML for over a decade, I've witnessed its evolution into a premier AI conference. The caliber of this year's keynote speakers inspired me to share these exciting developments."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const ICMLKeynotes = () => {
   );
 };
 
-export default ICMLKeynotes; 
+export default ICMLKeynotes;

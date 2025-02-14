@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const RLBreakthrough = () => {
@@ -8,6 +9,7 @@ const RLBreakthrough = () => {
       author="Tom Baker"
       date="March 28, 2024"
       readTime="8 min read"
+      inspiration="My work with multi-agent reinforcement learning systems has revealed their incredible potential. This breakthrough represents a significant step forward in our field."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const RLBreakthrough = () => {
   );
 };
 
-export default RLBreakthrough; 
+export default RLBreakthrough;

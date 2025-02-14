@@ -2,8 +2,6 @@ import { ArticleTemplate } from "@/components/ArticleTemplate";
 import { LearningCurve } from "@/components/LearningCurve";
 
 const LearningCurves = () => {
-  console.log("LearningCurves component rendering");
-
   return (
     <ArticleTemplate
       title="Understanding Learning Curves in Machine Learning"
@@ -11,6 +9,7 @@ const LearningCurves = () => {
       author="Dr. Sarah Chen"
       date="March 15, 2024"
       readTime="8 min read"
+      inspiration="Teaching machine learning to graduate students has taught me the importance of understanding learning curves. This article stems from my desire to make this crucial concept accessible to all practitioners."
       nextInIssue={[
         {
           title: "Neural Network Architecture Trends 2024",

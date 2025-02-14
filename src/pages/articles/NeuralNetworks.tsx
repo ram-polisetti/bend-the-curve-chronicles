@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const NeuralNetworks = () => {
@@ -8,6 +9,7 @@ const NeuralNetworks = () => {
       author="Alice Johnson"
       date="March 22, 2024"
       readTime="9 min read"
+      inspiration="My involvement in developing large-scale neural architectures has given me a front-row seat to their amazing capabilities. I'm excited to share these groundbreaking developments with the community."
       content={
         <>
           <p>
@@ -77,4 +79,4 @@ const NeuralNetworks = () => {
   );
 };
 
-export default NeuralNetworks; 
+export default NeuralNetworks;

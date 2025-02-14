@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const DeepLearningTrends = () => {
@@ -8,6 +9,7 @@ const DeepLearningTrends = () => {
       author="Emily Brown"
       date="March 23, 2024"
       readTime="7 min read"
+      inspiration="My years of research in deep learning architectures have given me unique insights into how these technologies are evolving. I'm passionate about sharing these developments with the broader AI community."
       content={
         <>
           <p>
@@ -77,4 +79,4 @@ const DeepLearningTrends = () => {
   );
 };
 
-export default DeepLearningTrends; 
+export default DeepLearningTrends;

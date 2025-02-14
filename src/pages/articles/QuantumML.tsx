@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const QuantumML = () => {
@@ -8,6 +9,7 @@ const QuantumML = () => {
       author="Rachel Adams"
       date="March 27, 2024"
       readTime="9 min read"
+      inspiration="My background in both quantum computing and machine learning has given me unique insights into their intersection. I'm excited to share how these fields are converging to create new possibilities."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const QuantumML = () => {
   );
 };
 
-export default QuantumML; 
+export default QuantumML;

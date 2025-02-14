@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const LanguageModels = () => {
@@ -8,6 +9,7 @@ const LanguageModels = () => {
       author="Isabella Nguyen"
       date="April 4, 2024"
       readTime="8 min read"
+      inspiration="My work in multilingual NLP research has shown me the incredible potential of language models to break down communication barriers. This drives my enthusiasm to share these breakthroughs."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const LanguageModels = () => {
   );
 };
 
-export default LanguageModels; 
+export default LanguageModels;

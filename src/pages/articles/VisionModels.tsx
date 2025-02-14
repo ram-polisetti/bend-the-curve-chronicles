@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const VisionModels = () => {
@@ -8,6 +9,7 @@ const VisionModels = () => {
       author="Jane Smith"
       date="March 21, 2024"
       readTime="8 min read"
+      inspiration="My experience developing AI systems for medical imaging has shown me their potential to transform healthcare. These breakthroughs in vision models represent a significant step forward in medical diagnostics."
       content={
         <>
           <p>
@@ -77,4 +79,4 @@ const VisionModels = () => {
   );
 };
 
-export default VisionModels; 
+export default VisionModels;

@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const TensorFlow3 = () => {
@@ -8,6 +9,7 @@ const TensorFlow3 = () => {
       author="Olivia Parker"
       date="April 6, 2024"
       readTime="6 min read"
+      inspiration="As a core contributor to TensorFlow, I've seen how framework improvements can dramatically impact AI development. I'm excited to share these new capabilities with the community."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const TensorFlow3 = () => {
   );
 };
 
-export default TensorFlow3; 
+export default TensorFlow3;
