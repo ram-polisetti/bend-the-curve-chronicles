@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIHealthcare = () => {
@@ -8,6 +9,7 @@ const AIHealthcare = () => {
       author="Ethan Harris"
       date="April 5, 2024"
       readTime="8 min read"
+      inspiration="My experience working with healthcare professionals and seeing their daily challenges led me to investigate how AI can improve patient care and medical decision-making."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AIHealthcare = () => {
   );
 };
 
-export default AIHealthcare; 
+export default AIHealthcare;

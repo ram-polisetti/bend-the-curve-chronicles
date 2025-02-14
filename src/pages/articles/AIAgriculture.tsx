@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIAgriculture = () => {
@@ -8,6 +9,7 @@ const AIAgriculture = () => {
       author="Grace Wilson"
       date="March 31, 2024"
       readTime="7 min read"
+      inspiration="Growing up in a farming community and witnessing the challenges faced by modern agriculture inspired me to explore how AI can revolutionize this vital industry."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AIAgriculture = () => {
   );
 };
 
-export default AIAgriculture; 
+export default AIAgriculture;
