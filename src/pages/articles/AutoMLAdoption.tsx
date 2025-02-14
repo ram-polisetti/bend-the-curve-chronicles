@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AutoMLAdoption = () => {
@@ -8,6 +9,7 @@ const AutoMLAdoption = () => {
       author="Natalie Rodriguez"
       date="April 2, 2024"
       readTime="7 min read"
+      inspiration="Working with small businesses adopting AI solutions showed me the transformative potential of AutoML in democratizing artificial intelligence."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AutoMLAdoption = () => {
   );
 };
 
-export default AutoMLAdoption; 
+export default AutoMLAdoption;

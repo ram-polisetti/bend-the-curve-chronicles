@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIRetail = () => {
@@ -8,6 +9,7 @@ const AIRetail = () => {
       author="Lucas Gray"
       date="April 1, 2024"
       readTime="6 min read"
+      inspiration="After consulting with major retailers on their digital transformation journeys, I've seen firsthand how AI is revolutionizing the shopping experience and retail operations."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AIRetail = () => {
   );
 };
 
-export default AIRetail; 
+export default AIRetail;

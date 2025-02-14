@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const BenchmarkDataset = () => {
@@ -8,6 +9,7 @@ const BenchmarkDataset = () => {
       author="Sophia Rodriguez"
       date="April 8, 2024"
       readTime="6 min read"
+      inspiration="The challenges I faced in comparing AI model performance led me to collaborate on creating a standardized benchmark dataset that could benefit the entire research community."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const BenchmarkDataset = () => {
   );
 };
 
-export default BenchmarkDataset; 
+export default BenchmarkDataset;

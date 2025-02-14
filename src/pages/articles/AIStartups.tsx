@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIStartups = () => {
@@ -8,6 +9,7 @@ const AIStartups = () => {
       author="Michael Chen"
       date="April 7, 2024"
       readTime="5 min read"
+      inspiration="As a venture capitalist focused on AI investments, I've witnessed the unprecedented growth in this sector. This inspired me to analyze the current investment landscape."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AIStartups = () => {
   );
 };
 
-export default AIStartups; 
+export default AIStartups;

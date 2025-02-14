@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIResearchTrends = () => {
@@ -8,6 +9,7 @@ const AIResearchTrends = () => {
       author="Olivia Martinez"
       date="March 29, 2024"
       readTime="7 min read"
+      inspiration="Through my role in leading AI research initiatives, I've observed the rapid evolution of the field. This motivated me to share insights about the most impactful emerging trends."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AIResearchTrends = () => {
   );
 };
 
-export default AIResearchTrends; 
+export default AIResearchTrends;

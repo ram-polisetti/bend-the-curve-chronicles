@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIRegulations = () => {
@@ -8,6 +9,7 @@ const AIRegulations = () => {
       author="Michael Lee"
       date="March 24, 2024"
       readTime="8 min read"
+      inspiration="My experience in international policy development has shown me the importance of creating balanced regulatory frameworks that protect society while fostering innovation."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AIRegulations = () => {
   );
 };
 
-export default AIRegulations; 
+export default AIRegulations;
