@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { NewsHeader } from "@/components/NewsHeader";
 import { Link } from "react-router-dom";
@@ -13,6 +14,15 @@ interface Article {
   author: string;
   created_at: string;
   category: string;
+}
+
+interface ArticleRelationship {
+  target_article_id: string;
+  relationship_type: string;
+}
+
+interface ArticleWithRelationships extends Article {
+  article_relationships: ArticleRelationship[];
 }
 
 interface ArticleWithDifficulty extends Article {
@@ -46,7 +56,7 @@ const Index = () => {
       .from('articles')
       .select(`
         *,
-        article_relationships!source_article_id(
+        article_relationships (
           target_article_id,
           relationship_type
         )
@@ -65,7 +75,7 @@ const Index = () => {
     }
 
     // Process articles to determine difficulty levels and prerequisites
-    const processedArticles = data.map(article => {
+    const processedArticles = (data as ArticleWithRelationships[]).map(article => {
       const prerequisites = article.article_relationships
         ?.filter(rel => rel.relationship_type === 'prerequisite')
         ?.map(rel => rel.target_article_id) || [];
