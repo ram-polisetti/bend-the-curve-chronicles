@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIEthics = () => {
@@ -8,6 +9,7 @@ const AIEthics = () => {
       author="David Kim"
       date="March 26, 2024"
       readTime="8 min read"
+      inspiration="Through my work at the intersection of technology and ethics, I've seen the critical importance of addressing ethical considerations early in AI development. This article stems from that experience."
       content={
         <>
           <p>

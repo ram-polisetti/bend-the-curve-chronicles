@@ -1,8 +1,7 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIHumanReasoning = () => {
-  console.log("AIHumanReasoning component rendering");
-  const articleTitle = "BendTheCurve.today: AI Human Reasoning";
   return (
     <ArticleTemplate
       title="AI Models Achieve Human-Level Reasoning"
@@ -10,6 +9,7 @@ const AIHumanReasoning = () => {
       author="John Doe"
       date="March 20, 2024"
       readTime="10 min read"
+      inspiration="After years of research in cognitive science and AI, witnessing machines begin to reason in ways previously thought unique to humans compelled me to share these groundbreaking developments."
       content={
         <>
           <p>

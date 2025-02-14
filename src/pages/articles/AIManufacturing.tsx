@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIManufacturing = () => {
@@ -8,6 +9,7 @@ const AIManufacturing = () => {
       author="Benjamin Carter"
       date="March 30, 2024"
       readTime="8 min read"
+      inspiration="Having worked with manufacturing plants during their digital transformation, I've witnessed firsthand how AI is revolutionizing traditional production methods. This experience drove me to share these insights."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AIManufacturing = () => {
   );
 };
 
-export default AIManufacturing; 
+export default AIManufacturing;

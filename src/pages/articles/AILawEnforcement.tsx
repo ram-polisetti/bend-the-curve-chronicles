@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AILawEnforcement = () => {
@@ -8,6 +9,7 @@ const AILawEnforcement = () => {
       author="Sarah Thompson"
       date="March 25, 2024"
       readTime="7 min read"
+      inspiration="My background in civil liberties and law enforcement technology led me to investigate the delicate balance between public safety and individual privacy in the age of AI."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AILawEnforcement = () => {
   );
 };
 
-export default AILawEnforcement; 
+export default AILawEnforcement;

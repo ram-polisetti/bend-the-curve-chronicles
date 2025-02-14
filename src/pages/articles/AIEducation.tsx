@@ -1,3 +1,4 @@
+
 import { ArticleTemplate } from "@/components/ArticleTemplate";
 
 const AIEducation = () => {
@@ -8,6 +9,7 @@ const AIEducation = () => {
       author="Emma Garcia"
       date="April 10, 2024"
       readTime="6 min read"
+      inspiration="As an educator for over a decade, I've witnessed firsthand how students learn at different paces. This inspired me to explore how AI can create more personalized and effective learning experiences."
       content={
         <>
           <p>
@@ -68,4 +70,4 @@ const AIEducation = () => {
   );
 };
 
-export default AIEducation; 
+export default AIEducation;
