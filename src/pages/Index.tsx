@@ -62,7 +62,6 @@ const Index = () => {
 
     console.log('Fetched articles:', data);
 
-    // Process articles to determine difficulty levels
     const processedArticles = (data || []).map(article => ({
       ...article,
       difficulty_level: article.category === 'deep-learning' || article.category === 'reinforcement-learning' ? 2 : 1,
@@ -86,16 +85,8 @@ const Index = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-[2000px] mx-auto py-8">
           {/* Category Navigation */}
-          <nav className="border-b border-black mb-8">
+          <nav className="border-b border-black mb-12">
             <div className="flex space-x-8 overflow-x-auto py-4">
-              <button
-                onClick={() => setSelectedCategory('all')}
-                className={`text-lg whitespace-nowrap ${
-                  selectedCategory === 'all' ? 'font-bold' : ''
-                }`}
-              >
-                All
-              </button>
               {categories.map(category => (
                 <button
                   key={category.id}
@@ -110,24 +101,50 @@ const Index = () => {
             </div>
           </nav>
 
-          {/* Main Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map(article => (
-              <article key={article.id} className="border-b border-gray-200 pb-4">
-                <Link to={`/articles/${article.id}`} className="group">
-                  <span className="text-xs uppercase tracking-wider text-gray-600">
-                    {article.category}
-                  </span>
-                  <h3 className="font-serif text-xl mt-2 group-hover:text-gray-800">
-                    {article.title}
-                  </h3>
-                  {article.subtitle && (
-                    <p className="text-sm mt-1 text-gray-600">
-                      {article.subtitle}
-                    </p>
-                  )}
-                  <div className="text-sm text-gray-600 mt-2">
-                    {article.read_time} • By {article.author}
+          {/* Featured Article */}
+          {articles.length > 0 && (
+            <div className="mb-16 border-b border-black pb-12">
+              <Link to={`/articles/${articles[0].id}`} className="group">
+                <span className="text-xs uppercase tracking-wider text-gray-600">
+                  {articles[0].category}
+                </span>
+                <h2 className="font-serif text-5xl mt-4 mb-4 group-hover:text-gray-800">
+                  {articles[0].title}
+                </h2>
+                {articles[0].subtitle && (
+                  <p className="text-xl mt-3 text-gray-600 font-serif">
+                    {articles[0].subtitle}
+                  </p>
+                )}
+                <div className="text-sm text-gray-600 mt-4">
+                  {articles[0].read_time} • By {articles[0].author}
+                </div>
+              </Link>
+            </div>
+          )}
+
+          {/* Articles List */}
+          <div className="space-y-12">
+            {articles.slice(1).map(article => (
+              <article key={article.id} className="border-b border-gray-200 pb-12">
+                <Link to={`/articles/${article.id}`} className="group flex flex-col md:flex-row gap-8">
+                  <div className="md:w-1/3">
+                    <span className="text-xs uppercase tracking-wider text-gray-600">
+                      {article.category}
+                    </span>
+                  </div>
+                  <div className="md:w-2/3">
+                    <h3 className="font-serif text-2xl group-hover:text-gray-800">
+                      {article.title}
+                    </h3>
+                    {article.subtitle && (
+                      <p className="text-lg mt-3 text-gray-600 font-serif">
+                        {article.subtitle}
+                      </p>
+                    )}
+                    <div className="text-sm text-gray-600 mt-4">
+                      {article.read_time} • By {article.author}
+                    </div>
                   </div>
                 </Link>
               </article>
