@@ -65,52 +65,93 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <NewsHeader />
       <main className="container mx-auto px-4 py-8">
-        {/* Featured Article */}
-        {articles.length > 0 && (
-          <div className="mb-16 border-b border-black pb-12">
-            <Link to={`/articles/${articles[0].id}`} className="group">
-              <span className="text-xs uppercase tracking-wider text-gray-600">
-                {articles[0].category}
-              </span>
-              <h2 className="font-serif text-5xl mt-4 mb-4 group-hover:text-gray-800">
-                {articles[0].title}
-              </h2>
-              {articles[0].subtitle && (
-                <p className="text-xl mt-3 text-gray-600 font-serif">
-                  {articles[0].subtitle}
-                </p>
-              )}
-              <div className="text-sm text-gray-600 mt-4">
-                {articles[0].read_time} • By {articles[0].author}
-              </div>
-            </Link>
+        <div className="grid grid-cols-12 gap-8">
+          {/* Left Column */}
+          <div className="col-span-3">
+            <h2 className="font-serif text-2xl mb-4 border-b border-black pb-2">
+              Headlines
+            </h2>
+            <div className="space-y-6">
+              {articles.slice(1, 4).map(article => (
+                <article key={article.id} className="border-b border-gray-200 pb-4">
+                  <Link to={`/articles/${article.id}`} className="group">
+                    <h3 className="font-serif text-lg group-hover:text-gray-800">
+                      {article.title}
+                    </h3>
+                    <div className="text-xs text-gray-600 mt-2">
+                      By {article.author}
+                    </div>
+                  </Link>
+                </article>
+              ))}
+            </div>
           </div>
-        )}
 
-        {/* Articles Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {articles.slice(1).map((article, index) => (
-            <article key={article.id} className={`border-b border-gray-200 pb-8 ${
-              index % 2 === 0 ? 'lg:border-r lg:pr-12' : 'lg:pl-12'
-            }`}>
-              <Link to={`/articles/${article.id}`} className="group">
-                <span className="text-xs uppercase tracking-wider text-gray-600">
-                  {article.category}
-                </span>
-                <h3 className="font-serif text-2xl mt-2 mb-3 group-hover:text-gray-800">
-                  {article.title}
-                </h3>
-                {article.subtitle && (
-                  <p className="text-base text-gray-600 font-serif">
-                    {article.subtitle}
-                  </p>
-                )}
-                <div className="text-sm text-gray-600 mt-3">
-                  {article.read_time} • By {article.author}
-                </div>
-              </Link>
-            </article>
-          ))}
+          {/* Main Content */}
+          <div className="col-span-6">
+            {articles.length > 0 && (
+              <article className="mb-8 border-b border-black pb-8">
+                <Link to={`/articles/${articles[0].id}`} className="group">
+                  <h1 className="font-serif text-5xl mb-4 leading-tight">
+                    {articles[0].title}
+                  </h1>
+                  {articles[0].subtitle && (
+                    <p className="text-xl text-gray-700 font-serif mb-4">
+                      {articles[0].subtitle}
+                    </p>
+                  )}
+                  <div className="text-sm text-gray-600">
+                    {articles[0].read_time} • By {articles[0].author}
+                  </div>
+                </Link>
+              </article>
+            )}
+
+            {/* Breaking News Section */}
+            <div className="mt-8">
+              <h2 className="font-serif text-3xl mb-6 border-b border-black pb-2">
+                Breaking News
+              </h2>
+              <div className="grid grid-cols-2 gap-8">
+                {articles.slice(4, 8).map(article => (
+                  <article key={article.id} className="border-b border-gray-200 pb-6">
+                    <Link to={`/articles/${article.id}`} className="group">
+                      <h3 className="font-serif text-xl mb-2 group-hover:text-gray-800">
+                        {article.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 line-clamp-2">
+                        {article.subtitle}
+                      </p>
+                      <div className="text-xs text-gray-600 mt-2">
+                        By {article.author}
+                      </div>
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Latest News */}
+          <div className="col-span-3">
+            <h2 className="font-serif text-2xl mb-4 border-b border-black pb-2">
+              Latest News
+            </h2>
+            <div className="space-y-4">
+              {articles.slice(8, 14).map(article => (
+                <article key={article.id} className="border-b border-gray-200 pb-3">
+                  <Link to={`/articles/${article.id}`} className="group">
+                    <h3 className="text-sm font-serif group-hover:text-gray-800">
+                      {article.title}
+                    </h3>
+                    <div className="text-xs text-gray-600 mt-1">
+                      {new Date(article.created_at).toLocaleDateString()}
+                    </div>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
 
         {articles.length === 0 && (
