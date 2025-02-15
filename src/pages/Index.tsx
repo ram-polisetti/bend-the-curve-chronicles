@@ -66,65 +66,59 @@ const Index = () => {
       <NewsHeader />
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-12 gap-8">
-          {/* Left Column */}
-          <div className="col-span-3">
-            <h2 className="font-serif text-2xl mb-4 border-b border-black pb-2">
-              Headlines
-            </h2>
-            <div className="space-y-6">
-              {articles.slice(1, 4).map(article => (
+          {/* Featured Image and Main Headline */}
+          <div className="col-span-12 grid grid-cols-12 gap-8 mb-12">
+            <div className="col-span-7">
+              {articles.length > 0 && (
+                <div className="aspect-video bg-gray-200 mb-4"></div>
+              )}
+              {articles.length > 0 && (
+                <article>
+                  <Link to={`/articles/${articles[0].id}`} className="group">
+                    <h1 className="font-serif text-4xl mb-3 leading-tight">
+                      {articles[0].title}
+                    </h1>
+                    <p className="text-base text-gray-700 font-serif">
+                      {articles[0].subtitle}
+                    </p>
+                  </Link>
+                </article>
+              )}
+            </div>
+            
+            {/* Right Side Headlines */}
+            <div className="col-span-5 space-y-6">
+              {articles.slice(1, 5).map(article => (
                 <article key={article.id} className="border-b border-gray-200 pb-4">
                   <Link to={`/articles/${article.id}`} className="group">
-                    <h3 className="font-serif text-lg group-hover:text-gray-800">
+                    <h3 className="font-serif text-xl mb-2 group-hover:text-gray-800">
                       {article.title}
                     </h3>
-                    <div className="text-xs text-gray-600 mt-2">
-                      By {article.author}
-                    </div>
+                    <p className="text-sm text-gray-600">
+                      {article.subtitle}
+                    </p>
                   </Link>
                 </article>
               ))}
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className="col-span-6">
-            {articles.length > 0 && (
-              <article className="mb-8 border-b border-black pb-8">
-                <Link to={`/articles/${articles[0].id}`} className="group">
-                  <h1 className="font-serif text-5xl mb-4 leading-tight">
-                    {articles[0].title}
-                  </h1>
-                  {articles[0].subtitle && (
-                    <p className="text-xl text-gray-700 font-serif mb-4">
-                      {articles[0].subtitle}
-                    </p>
-                  )}
-                  <div className="text-sm text-gray-600">
-                    {articles[0].read_time} • By {articles[0].author}
-                  </div>
-                </Link>
-              </article>
-            )}
-
-            {/* Breaking News Section */}
-            <div className="mt-8">
-              <h2 className="font-serif text-3xl mb-6 border-b border-black pb-2">
-                Breaking News
-              </h2>
-              <div className="grid grid-cols-2 gap-8">
-                {articles.slice(4, 8).map(article => (
-                  <article key={article.id} className="border-b border-gray-200 pb-6">
+          {/* Breaking News Section */}
+          <div className="col-span-12 border-t border-b border-black py-6 mb-12">
+            <h2 className="font-serif text-3xl mb-8">Breaking News</h2>
+            <div className="grid grid-cols-12 gap-8">
+              <div className="col-span-8">
+                <p className="font-serif text-lg leading-relaxed">
+                  {articles[5]?.content?.slice(0, 300)}...
+                </p>
+              </div>
+              <div className="col-span-4 space-y-4">
+                {articles.slice(6, 8).map(article => (
+                  <article key={article.id}>
                     <Link to={`/articles/${article.id}`} className="group">
-                      <h3 className="font-serif text-xl mb-2 group-hover:text-gray-800">
+                      <h3 className="font-serif text-lg group-hover:text-gray-800">
                         {article.title}
                       </h3>
-                      <p className="text-sm text-gray-600 line-clamp-2">
-                        {article.subtitle}
-                      </p>
-                      <div className="text-xs text-gray-600 mt-2">
-                        By {article.author}
-                      </div>
                     </Link>
                   </article>
                 ))}
@@ -132,21 +126,52 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Right Column - Latest News */}
-          <div className="col-span-3">
-            <h2 className="font-serif text-2xl mb-4 border-b border-black pb-2">
-              Latest News
-            </h2>
-            <div className="space-y-4">
-              {articles.slice(8, 14).map(article => (
-                <article key={article.id} className="border-b border-gray-200 pb-3">
+          {/* Bottom Grid */}
+          <div className="col-span-12 grid grid-cols-12 gap-8">
+            {/* Left Column */}
+            <div className="col-span-4">
+              {articles.slice(8, 9).map(article => (
+                <article key={article.id} className="mb-6">
                   <Link to={`/articles/${article.id}`} className="group">
-                    <h3 className="text-sm font-serif group-hover:text-gray-800">
+                    <h3 className="font-serif text-xl mb-3 group-hover:text-gray-800">
                       {article.title}
                     </h3>
-                    <div className="text-xs text-gray-600 mt-1">
-                      {new Date(article.created_at).toLocaleDateString()}
-                    </div>
+                    <p className="text-gray-600 font-serif">
+                      {article.subtitle}
+                    </p>
+                  </Link>
+                </article>
+              ))}
+            </div>
+
+            {/* Center Column */}
+            <div className="col-span-4">
+              {articles.slice(9, 10).map(article => (
+                <article key={article.id} className="mb-6">
+                  <Link to={`/articles/${article.id}`} className="group">
+                    <div className="aspect-video bg-gray-200 mb-4"></div>
+                    <h3 className="font-serif text-xl mb-3 group-hover:text-gray-800">
+                      {article.title}
+                    </h3>
+                    <p className="text-gray-600 font-serif">
+                      {article.subtitle}
+                    </p>
+                  </Link>
+                </article>
+              ))}
+            </div>
+
+            {/* Right Column */}
+            <div className="col-span-4">
+              {articles.slice(10, 11).map(article => (
+                <article key={article.id} className="mb-6">
+                  <Link to={`/articles/${article.id}`} className="group">
+                    <h3 className="font-serif text-xl mb-3 group-hover:text-gray-800">
+                      {article.title}
+                    </h3>
+                    <p className="text-gray-600 font-serif">
+                      {article.subtitle}
+                    </p>
                   </Link>
                 </article>
               ))}
