@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArticleTemplate } from '@/components/ArticleTemplate';
+import { NewsHeader } from '@/components/NewsHeader';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -39,9 +39,7 @@ const DynamicArticle = () => {
           .eq('id', id)
           .maybeSingle();
 
-        if (error) {
-          throw error;
-        }
+        if (error) throw error;
 
         if (!data) {
           toast({
@@ -65,9 +63,7 @@ const DynamicArticle = () => {
       }
     };
 
-    if (id) {
-      fetchArticle();
-    }
+    if (id) fetchArticle();
   }, [id, toast, navigate]);
 
   if (isLoading) {
@@ -94,80 +90,88 @@ const DynamicArticle = () => {
 
   const renderContent = () => {
     const paragraphs = article.content.split('\n\n');
-    
-    if (isMobile) {
-      // Single column layout for mobile
-      return (
-        <div className="prose prose-lg max-w-none">
-          {paragraphs.map((paragraph, index) => {
-            if (paragraph.startsWith('##')) {
-              const headingText = paragraph.replace('##', '').trim();
-              const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-              return <h2 key={index} id={headingId} className="text-2xl font-serif mt-8 mb-4">{headingText}</h2>;
-            } else if (paragraph.startsWith('-')) {
-              const items = paragraph.split('\n').map(item => item.replace('-', '').trim());
-              return (
-                <ul key={index} className="list-disc pl-6 my-4">
-                  {items.map((item, itemIndex) => (
-                    <li key={itemIndex} className="my-2">{item}</li>
-                  ))}
-                </ul>
-              );
-            } else {
-              return <p key={index} className="my-4">{paragraph}</p>;
-            }
-          })}
-        </div>
-      );
-    }
 
-    // Multi-column layout for desktop
     return (
-      <div className="columns-2 gap-8 prose prose-lg max-w-none">
-        {paragraphs.map((paragraph, index) => {
-          if (paragraph.startsWith('##')) {
-            const headingText = paragraph.replace('##', '').trim();
-            const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-            return (
-              <div key={index} className="break-inside-avoid-column mb-6">
-                <h2 id={headingId} className="text-2xl font-serif mt-8 mb-4">{headingText}</h2>
-              </div>
-            );
-          } else if (paragraph.startsWith('-')) {
-            const items = paragraph.split('\n').map(item => item.replace('-', '').trim());
-            return (
-              <div key={index} className="break-inside-avoid-column mb-6">
-                <ul className="list-disc pl-6 my-4">
-                  {items.map((item, itemIndex) => (
-                    <li key={itemIndex} className="my-2">{item}</li>
-                  ))}
-                </ul>
-              </div>
-            );
-          } else {
-            return (
-              <p key={index} className="break-inside-avoid-column mb-6">
-                {paragraph}
-              </p>
-            );
-          }
-        })}
+      <div className="grid grid-cols-12 gap-8">
+        {/* Main Image and Title Section */}
+        <div className="col-span-12 mb-8">
+          <div className="aspect-video bg-gray-200 mb-6"></div>
+          <h1 className="font-serif text-5xl mb-4">{article.title}</h1>
+          <div className="text-sm text-gray-600 mb-6">
+            By {article.author} • {formattedDate} • {article.read_time}
+          </div>
+        </div>
+
+        {/* Two Column Content Layout */}
+        <div className="col-span-8">
+          <div className="prose prose-lg max-w-none font-serif">
+            {paragraphs.slice(0, Math.ceil(paragraphs.length / 2)).map((paragraph, index) => {
+              if (paragraph.startsWith('##')) {
+                const headingText = paragraph.replace('##', '').trim();
+                return <h2 key={index} className="text-2xl font-serif mt-8 mb-4">{headingText}</h2>;
+              } else if (paragraph.startsWith('-')) {
+                const items = paragraph.split('\n').map(item => item.replace('-', '').trim());
+                return (
+                  <ul key={index} className="list-disc pl-6 my-4">
+                    {items.map((item, itemIndex) => (
+                      <li key={itemIndex} className="my-2">{item}</li>
+                    ))}
+                  </ul>
+                );
+              }
+              return <p key={index} className="mb-4">{paragraph}</p>;
+            })}
+          </div>
+        </div>
+
+        {/* Side Column */}
+        <div className="col-span-4 space-y-8">
+          {/* Related Headlines */}
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <h3 className="font-serif text-xl mb-4 border-b border-gray-200 pb-2">
+              Related Headlines
+            </h3>
+            <div className="space-y-4">
+              {article.related_articles?.slice(0, 4).map((related: any, index: number) => (
+                <div key={index} className="border-b border-gray-100 pb-4 last:border-0">
+                  <h4 className="font-serif text-lg">{related.title}</h4>
+                  <p className="text-sm text-gray-600 mt-1">{related.excerpt}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Continue Article */}
+          <div className="prose prose-lg max-w-none font-serif">
+            {paragraphs.slice(Math.ceil(paragraphs.length / 2)).map((paragraph, index) => {
+              if (paragraph.startsWith('##')) {
+                const headingText = paragraph.replace('##', '').trim();
+                return <h2 key={index} className="text-2xl font-serif mt-8 mb-4">{headingText}</h2>;
+              } else if (paragraph.startsWith('-')) {
+                const items = paragraph.split('\n').map(item => item.replace('-', '').trim());
+                return (
+                  <ul key={index} className="list-disc pl-6 my-4">
+                    {items.map((item, itemIndex) => (
+                      <li key={itemIndex} className="my-2">{item}</li>
+                    ))}
+                  </ul>
+                );
+              }
+              return <p key={index} className="mb-4">{paragraph}</p>;
+            })}
+          </div>
+        </div>
       </div>
     );
   };
 
   return (
-    <ArticleTemplate
-      title={article.title}
-      subtitle={article.subtitle || ""}
-      author={article.author}
-      date={formattedDate}
-      readTime={article.read_time}
-      content={renderContent()}
-      inspiration={article.inspiration || ""}
-      relatedArticles={article.related_articles || []}
-      nextInIssue={article.next_in_issue || []}
-    />
+    <div className="min-h-screen bg-white">
+      <NewsHeader />
+      <main className="container mx-auto px-4 py-8">
+        {renderContent()}
+      </main>
+    </div>
   );
 };
 
