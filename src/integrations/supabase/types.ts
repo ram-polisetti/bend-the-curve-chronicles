@@ -27,6 +27,7 @@ export type Database = {
           subtitle: string | null
           title: string
           updated_at: string
+          views: number | null
           volume: number
         }
         Insert: {
@@ -46,6 +47,7 @@ export type Database = {
           subtitle?: string | null
           title: string
           updated_at?: string
+          views?: number | null
           volume: number
         }
         Update: {
@@ -65,6 +67,7 @@ export type Database = {
           subtitle?: string | null
           title?: string
           updated_at?: string
+          views?: number | null
           volume?: number
         }
         Relationships: []
@@ -101,7 +104,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      increment_article_views: {
+        Args: {
+          article_id: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

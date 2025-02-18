@@ -20,6 +20,7 @@ interface Article {
   next_in_issue: any | null;
   inspiration: string | null;
   hero_image: string | null;
+  views: number;
 }
 
 const DynamicArticle = () => {
@@ -53,6 +54,9 @@ const DynamicArticle = () => {
           navigate('/');
           return;
         }
+
+        // Increment view count
+        await supabase.rpc('increment_article_views', { article_id: id });
 
         setArticle(data as Article);
       } catch (error: any) {
