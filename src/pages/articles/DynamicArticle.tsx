@@ -19,6 +19,7 @@ interface Article {
   related_articles: any | null;
   next_in_issue: any | null;
   inspiration: string | null;
+  hero_image: string | null;
 }
 
 const DynamicArticle = () => {
@@ -96,7 +97,6 @@ const DynamicArticle = () => {
     const paragraphs = article.content.split('\n\n');
     
     if (isMobile) {
-      // Single column layout for mobile
       return (
         <div className="prose prose-lg max-w-none">
           {paragraphs.map((paragraph, index) => {
@@ -121,7 +121,6 @@ const DynamicArticle = () => {
       );
     }
 
-    // Multi-column layout for desktop
     return (
       <div className="columns-2 gap-8 prose prose-lg max-w-none">
         {paragraphs.map((paragraph, index) => {
@@ -167,6 +166,7 @@ const DynamicArticle = () => {
       inspiration={article.inspiration || ""}
       relatedArticles={article.related_articles || []}
       nextInIssue={article.next_in_issue || []}
+      heroImage={article.hero_image || undefined}
     />
   );
 };

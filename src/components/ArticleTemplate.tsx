@@ -26,6 +26,7 @@ interface ArticleTemplateProps {
   inspiration: string;
   relatedArticles: RelatedArticle[];
   nextInIssue: NextInIssue[];
+  heroImage?: string;
 }
 
 export const ArticleTemplate = ({
@@ -38,6 +39,7 @@ export const ArticleTemplate = ({
   inspiration,
   relatedArticles,
   nextInIssue,
+  heroImage,
 }: ArticleTemplateProps) => {
   const [activeSection, setActiveSection] = useState<string>("");
   const [headings, setHeadings] = useState<HTMLElement[]>([]);
@@ -59,8 +61,8 @@ export const ArticleTemplate = ({
             });
           },
           {
-            rootMargin: '0px 0px -80% 0px', // Adjusted for better responsiveness
-            threshold: 0.1, // Trigger when 10% of the heading is visible
+            rootMargin: '0px 0px -80% 0px',
+            threshold: 0.1,
           }
         );
 
@@ -73,7 +75,6 @@ export const ArticleTemplate = ({
     }, 100);
   }, [content]);
 
-  // Mouse position tracking
   const handleMouseMove = (event: MouseEvent) => {
     if (contentRef.current) {
       const headings = Array.from(contentRef.current.querySelectorAll('h2, h3'));
@@ -93,11 +94,6 @@ export const ArticleTemplate = ({
     };
   }, []);
 
-  console.log("Headings:", headings); // Check if headings are set correctly
-  console.log("Active Section:", activeSection); // Check if active section is being updated
-
-  const siteName = "BendTheCurve.today";
-
   return (
     <div className="min-h-screen bg-white">
       <NewsHeader isArticlePage={true} />
@@ -108,6 +104,15 @@ export const ArticleTemplate = ({
               <header className="mb-12 border-b border-black pb-8">
                 <h1 className="font-serif text-6xl text-black mb-6 leading-tight">{title}</h1>
                 <p className="text-2xl text-gray-700 font-serif mb-6 leading-relaxed">{subtitle}</p>
+                {heroImage && (
+                  <div className="mb-6">
+                    <img 
+                      src={heroImage} 
+                      alt={title}
+                      className="w-full h-[400px] object-cover rounded-lg"
+                    />
+                  </div>
+                )}
                 <div className="text-sm text-gray-600 flex items-center space-x-4">
                   <span className="font-semibold">By {author}</span>
                   <span>|</span>
@@ -129,10 +134,8 @@ export const ArticleTemplate = ({
               </div>
             </article>
 
-            {/* Right Sidebar - Adjusted position closer to content */}
             <aside className="fixed right-12 top-32 w-56 h-[calc(100vh-8rem)] overflow-y-auto hide-scrollbar">
               <div>
-                {/* Table of Contents */}
                 <div className="mb-4">
                   <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
                     Contents
@@ -154,7 +157,6 @@ export const ArticleTemplate = ({
                   </nav>
                 </div>
 
-                {/* In this Issue */}
                 <div className="mb-4">
                   <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
                     In this Issue
@@ -178,7 +180,6 @@ export const ArticleTemplate = ({
                   </div>
                 </div>
 
-                {/* Related Articles */}
                 <div>
                   <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
                     Related Stories

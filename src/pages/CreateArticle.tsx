@@ -15,6 +15,7 @@ const CreateArticle = () => {
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('general');
   const [inspiration, setInspiration] = useState('');
+  const [heroImage, setHeroImage] = useState('');
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -44,6 +45,7 @@ const CreateArticle = () => {
             content,
             category,
             inspiration,
+            hero_image: heroImage,
             author_id: user.id,
             author: user.email,
             read_time: `${Math.ceil(content.split(' ').length / 200)} min read`,
@@ -95,6 +97,15 @@ const CreateArticle = () => {
                 value={subtitle}
                 onChange={(e) => setSubtitle(e.target.value)}
                 className="text-xl font-serif"
+              />
+            </div>
+            <div>
+              <Input
+                placeholder="Hero Image URL (optional)"
+                value={heroImage}
+                onChange={(e) => setHeroImage(e.target.value)}
+                className="text-base"
+                type="url"
               />
             </div>
             <div>
