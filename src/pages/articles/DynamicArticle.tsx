@@ -5,7 +5,6 @@ import { NewsHeader } from '@/components/NewsHeader';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Article {
   id: string;
@@ -27,7 +26,6 @@ const DynamicArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -88,88 +86,81 @@ const DynamicArticle = () => {
     day: 'numeric'
   });
 
-  const renderContent = () => {
-    const paragraphs = article.content.split('\n\n');
-
-    return (
-      <div className="grid grid-cols-12 gap-8">
-        {/* Main Image and Title Section */}
-        <div className="col-span-12 mb-8">
-          <div className="aspect-video bg-gray-200 mb-6"></div>
-          <h1 className="font-serif text-5xl mb-4">{article.title}</h1>
-          <div className="text-sm text-gray-600 mb-6">
-            By {article.author} • {formattedDate} • {article.read_time}
-          </div>
-        </div>
-
-        {/* Two Column Content Layout */}
-        <div className="col-span-8">
-          <div className="prose prose-lg max-w-none font-serif">
-            {paragraphs.slice(0, Math.ceil(paragraphs.length / 2)).map((paragraph, index) => {
-              if (paragraph.startsWith('##')) {
-                const headingText = paragraph.replace('##', '').trim();
-                return <h2 key={index} className="text-2xl font-serif mt-8 mb-4">{headingText}</h2>;
-              } else if (paragraph.startsWith('-')) {
-                const items = paragraph.split('\n').map(item => item.replace('-', '').trim());
-                return (
-                  <ul key={index} className="list-disc pl-6 my-4">
-                    {items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="my-2">{item}</li>
-                    ))}
-                  </ul>
-                );
-              }
-              return <p key={index} className="mb-4">{paragraph}</p>;
-            })}
-          </div>
-        </div>
-
-        {/* Side Column */}
-        <div className="col-span-4 space-y-8">
-          {/* Related Headlines */}
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <h3 className="font-serif text-xl mb-4 border-b border-gray-200 pb-2">
-              Related Headlines
-            </h3>
-            <div className="space-y-4">
-              {article.related_articles?.slice(0, 4).map((related: any, index: number) => (
-                <div key={index} className="border-b border-gray-100 pb-4 last:border-0">
-                  <h4 className="font-serif text-lg">{related.title}</h4>
-                  <p className="text-sm text-gray-600 mt-1">{related.excerpt}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Continue Article */}
-          <div className="prose prose-lg max-w-none font-serif">
-            {paragraphs.slice(Math.ceil(paragraphs.length / 2)).map((paragraph, index) => {
-              if (paragraph.startsWith('##')) {
-                const headingText = paragraph.replace('##', '').trim();
-                return <h2 key={index} className="text-2xl font-serif mt-8 mb-4">{headingText}</h2>;
-              } else if (paragraph.startsWith('-')) {
-                const items = paragraph.split('\n').map(item => item.replace('-', '').trim());
-                return (
-                  <ul key={index} className="list-disc pl-6 my-4">
-                    {items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="my-2">{item}</li>
-                    ))}
-                  </ul>
-                );
-              }
-              return <p key={index} className="mb-4">{paragraph}</p>;
-            })}
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const paragraphs = article.content.split('\n\n');
 
   return (
     <div className="min-h-screen bg-white">
+      <div className="border-b border-black">
+        <div className="container mx-auto px-4 py-2">
+          <div className="text-center text-sm border-b border-gray-300 pb-2 mb-2">
+            VOL. 127 - NO. 39 • BEND THE CURVE • PAGE 2
+          </div>
+        </div>
+      </div>
       <NewsHeader />
       <main className="container mx-auto px-4 py-8">
-        {renderContent()}
+        <div className="grid grid-cols-12 gap-8">
+          {/* Title Section */}
+          <div className="col-span-12 mb-8">
+            <div className="border-b-2 border-black pb-4 mb-6">
+              <h1 className="font-serif text-5xl mb-4">{article.title}</h1>
+              {article.subtitle && (
+                <h2 className="font-serif text-2xl text-gray-700 mb-4">{article.subtitle}</h2>
+              )}
+            </div>
+          </div>
+
+          {/* Main Content Area */}
+          <div className="col-span-8">
+            <div className="prose prose-lg max-w-none">
+              <div className="font-serif text-base leading-relaxed columns-2 gap-8">
+                {paragraphs.map((paragraph, index) => {
+                  if (paragraph.startsWith('##')) {
+                    const headingText = paragraph.replace('##', '').trim();
+                    return (
+                      <h3 key={index} className="text-xl font-serif mt-6 mb-4 column-span-all">
+                        {headingText}
+                      </h3>
+                    );
+                  }
+                  return <p key={index} className="mb-4">{paragraph}</p>;
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="col-span-4">
+            <div className="bg-gray-50 p-6 mb-6">
+              <h3 className="font-serif text-xl mb-4 uppercase border-b border-gray-300 pb-2">
+                Good News
+              </h3>
+              <p className="text-sm text-gray-700 mb-4">
+                {article.inspiration || "Latest updates in artificial intelligence and technology."}
+              </p>
+            </div>
+
+            {/* Related Articles */}
+            <div className="border-t-2 border-black pt-4">
+              <h3 className="font-serif text-xl mb-4">Related Stories</h3>
+              <div className="space-y-4">
+                {article.related_articles?.slice(0, 3).map((related: any, index: number) => (
+                  <div key={index} className="pb-4 border-b border-gray-200">
+                    <h4 className="font-serif text-lg mb-2">{related.title}</h4>
+                    <p className="text-sm text-gray-600">{related.excerpt}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Info */}
+          <div className="col-span-12 mt-8 pt-4 border-t border-black">
+            <div className="text-sm text-gray-600">
+              By {article.author} • Published {formattedDate} • {article.read_time}
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
