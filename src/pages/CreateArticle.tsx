@@ -77,80 +77,63 @@ const CreateArticle = () => {
     <div className="min-h-screen bg-white">
       <NewsHeader />
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 gap-8">
-          {/* Editor Section */}
-          <div>
-            <h1 className="text-3xl font-serif mb-8">Write an Article</h1>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <Input
-                  placeholder="Title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="text-2xl font-serif"
-                  required
-                />
-              </div>
-              <div>
-                <Input
-                  placeholder="Subtitle (optional)"
-                  value={subtitle}
-                  onChange={(e) => setSubtitle(e.target.value)}
-                  className="text-xl font-serif"
-                />
-              </div>
-              <div>
-                <select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  className="w-full p-2 border rounded"
-                  required
-                >
-                  <option value="general">General</option>
-                  <option value="machine-learning">Machine Learning</option>
-                  <option value="deep-learning">Deep Learning</option>
-                  <option value="reinforcement-learning">Reinforcement Learning</option>
-                  <option value="ethics">Ethics in AI</option>
-                  <option value="research">Research</option>
-                </select>
-              </div>
-              <div>
-                <Textarea
-                  placeholder="What inspired you to write this article? Share your motivation and the challenges you faced."
-                  value={inspiration}
-                  onChange={(e) => setInspiration(e.target.value)}
-                  className="min-h-[100px]"
-                />
-              </div>
-              <div className="min-h-[500px]">
-                <MDEditor
-                  value={content}
-                  onChange={(val) => setContent(val || '')}
-                  height={500}
-                  preview="edit"
-                />
-              </div>
-              <div className="flex justify-end">
-                <Button type="submit">
-                  Publish Article
-                </Button>
-              </div>
-            </form>
-          </div>
-
-          {/* Preview Section */}
-          <div className="border-l pl-8">
-            <h2 className="text-2xl font-serif mb-6">Preview</h2>
-            <div className="prose-newspaper">
-              {title && <h1 className="text-4xl font-serif mb-4">{title}</h1>}
-              {subtitle && <h2 className="text-2xl font-serif text-gray-600 mb-6">{subtitle}</h2>}
-              {content && (
-                <div className="markdown-preview">
-                  <MDEditor.Markdown source={content} />
-                </div>
-              )}
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl font-serif mb-8">Write an Article</h1>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <Input
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="text-2xl font-serif"
+                required
+              />
             </div>
-          </div>
+            <div>
+              <Input
+                placeholder="Subtitle (optional)"
+                value={subtitle}
+                onChange={(e) => setSubtitle(e.target.value)}
+                className="text-xl font-serif"
+              />
+            </div>
+            <div>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full p-2 border rounded"
+                required
+              >
+                <option value="general">General</option>
+                <option value="machine-learning">Machine Learning</option>
+                <option value="deep-learning">Deep Learning</option>
+                <option value="reinforcement-learning">Reinforcement Learning</option>
+                <option value="ethics">Ethics in AI</option>
+                <option value="research">Research</option>
+              </select>
+            </div>
+            <div>
+              <Textarea
+                placeholder="What inspired you to write this article? Share your motivation and the challenges you faced."
+                value={inspiration}
+                onChange={(e) => setInspiration(e.target.value)}
+                className="min-h-[100px]"
+              />
+            </div>
+            <div className="min-h-[500px]">
+              <MDEditor
+                value={content}
+                onChange={(val) => setContent(val || '')}
+                height={500}
+                preview="edit"
+              />
+            </div>
+            <div className="flex justify-end">
+              <Button type="submit">
+                Publish Article
+              </Button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
