@@ -21,19 +21,18 @@ const fetchArticles = async () => {
 
 const Index = () => {
   const { toast } = useToast();
-  const { data: articles = [], isLoading } = useQuery({
+  const { data: articles = [], isLoading, error } = useQuery({
     queryKey: ['articles'],
-    queryFn: fetchArticles,
-    gcTime: 0,
-    retry: false,
-    onError: (error: any) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive"
-      });
-    }
+    queryFn: fetchArticles
   });
+
+  if (error) {
+    toast({
+      title: "Error",
+      description: (error as Error).message,
+      variant: "destructive"
+    });
+  }
 
   const mainArticle = articles[0];
   const topSectionArticles = articles.slice(1, 4);
