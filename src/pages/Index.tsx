@@ -8,14 +8,21 @@ import { TrendingSidebar } from "@/components/home/TrendingSidebar";
 import { MoreStories } from "@/components/home/MoreStories";
 import { Article } from "@/types/article";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const fetchArticles = async () => {
+  console.log("Fetching articles...");
   const { data, error } = await supabase
     .from('articles')
     .select('*')
     .order('views', { ascending: false });
 
-  if (error) throw error;
+  if (error) {
+    console.error("Error fetching articles:", error);
+    throw error;
+  }
+  
+  console.log("Articles fetched:", data);
   return data;
 };
 
@@ -26,13 +33,18 @@ const Index = () => {
     queryFn: fetchArticles
   });
 
-  if (error) {
-    toast({
-      title: "Error",
-      description: (error as Error).message,
-      variant: "destructive"
-    });
-  }
+  useEffect(() => {
+    if (error) {
+      console.error("Query error:", error);
+      toast({
+        title: "Error",
+        description: (error as Error).message,
+        variant: "destructive"
+      });
+    }
+  }, [error, toast]);
+
+  console.log("Rendering with:", { articles, isLoading, error });
 
   const mainArticle = articles[0];
   const topSectionArticles = articles.slice(1, 4);
