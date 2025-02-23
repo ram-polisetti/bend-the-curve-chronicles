@@ -97,33 +97,33 @@ export const ArticleTemplate = ({
   return (
     <div className="min-h-screen bg-white">
       <NewsHeader isArticlePage={true} />
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-4">
         <div className="relative max-w-[2000px] mx-auto">
-          <div className="mx-auto py-8 md:py-12 md:pl-0 md:pr-64 flex flex-col md:flex-row">
+          <div className="mx-auto py-12 pl-0 pr-48 flex">
             <article className="flex-1 overflow-y-auto">
-              <header className="mb-8 md:mb-12 border-b border-black pb-6 md:pb-8">
-                <h1 className="font-serif text-4xl md:text-6xl text-black mb-4 md:mb-6 leading-tight">{title}</h1>
-                <p className="text-xl md:text-2xl text-gray-700 font-serif mb-4 md:mb-6 leading-relaxed">{subtitle}</p>
+              <header className="mb-12 border-b border-black pb-8">
+                <h1 className="font-serif text-6xl text-black mb-6 leading-tight">{title}</h1>
+                <p className="text-2xl text-gray-700 font-serif mb-6 leading-relaxed">{subtitle}</p>
                 {heroImage && (
                   <div className="mb-6">
                     <img 
                       src={heroImage} 
                       alt={title}
-                      className="w-full h-[250px] md:h-[400px] object-cover rounded-lg"
+                      className="w-full h-[400px] object-cover rounded-lg"
                     />
                   </div>
                 )}
-                <div className="text-sm text-gray-600 flex flex-wrap items-center gap-2 md:gap-4">
+                <div className="text-sm text-gray-600 flex items-center space-x-4">
                   <span className="font-semibold">By {author}</span>
-                  <span className="hidden md:inline">|</span>
+                  <span>|</span>
                   <span>{date}</span>
-                  <span className="hidden md:inline">|</span>
+                  <span>|</span>
                   <span>{readTime}</span>
                 </div>
               </header>
 
               {inspiration && (
-                <div className="mb-6 md:mb-8 bg-gray-50 p-4 md:p-6 rounded-lg border border-gray-200">
+                <div className="mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <h3 className="text-lg font-serif font-semibold mb-2">Behind the Story</h3>
                   <p className="text-gray-700 italic">{inspiration}</p>
                 </div>
@@ -134,7 +134,7 @@ export const ArticleTemplate = ({
               </div>
             </article>
 
-            <aside className="mt-8 md:mt-0 md:fixed md:right-12 md:top-32 w-full md:w-56 md:h-[calc(100vh-8rem)] overflow-y-auto hide-scrollbar">
+            <aside className="fixed right-12 top-32 w-56 h-[calc(100vh-8rem)] overflow-y-auto hide-scrollbar">
               <div>
                 <div className="mb-4">
                   <h3 className="font-serif text-lg font-bold border-b border-black pb-2">
