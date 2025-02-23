@@ -21,17 +21,17 @@ const fetchArticles = async () => {
 
 const Index = () => {
   const { toast } = useToast();
-  const { data: articles = [], isLoading, error } = useQuery({
+  const { data: articles = [], isLoading } = useQuery({
     queryKey: ['articles'],
     queryFn: fetchArticles,
-    meta: {
-      onError: (error: Error) => {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive"
-        });
-      }
+    gcTime: 0,
+    retry: false,
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive"
+      });
     }
   });
 
