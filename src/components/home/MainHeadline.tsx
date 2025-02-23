@@ -1,19 +1,22 @@
 
 import { Link } from "react-router-dom";
-
-interface Article {
-  id: string;
-  title: string;
-  subtitle: string | null;
-  hero_image: string | null;
-  views: number;
-}
+import { Article } from "@/types/article";
+import { ArticleSkeleton } from "@/components/ui/article-skeleton";
 
 interface MainHeadlineProps {
-  article: Article;
+  article?: Article;
+  isLoading?: boolean;
 }
 
-export const MainHeadline = ({ article }: MainHeadlineProps) => {
+export const MainHeadline = ({ article, isLoading }: MainHeadlineProps) => {
+  if (isLoading) {
+    return (
+      <div className="border-b-2 border-black py-6">
+        <ArticleSkeleton />
+      </div>
+    );
+  }
+
   if (!article) return null;
 
   return (

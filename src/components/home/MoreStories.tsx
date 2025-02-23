@@ -1,19 +1,27 @@
 
 import { Link } from "react-router-dom";
-
-interface Article {
-  id: string;
-  title: string;
-  read_time: string;
-  hero_image: string | null;
-  views: number;
-}
+import { Article } from "@/types/article";
+import { ArticleSkeleton } from "@/components/ui/article-skeleton";
 
 interface MoreStoriesProps {
   articles: Article[];
+  isLoading?: boolean;
 }
 
-export const MoreStories = ({ articles }: MoreStoriesProps) => {
+export const MoreStories = ({ articles, isLoading }: MoreStoriesProps) => {
+  if (isLoading) {
+    return (
+      <div className="mt-12 border-t border-black pt-8">
+        <h2 className="font-serif text-2xl mb-6">More Stories</h2>
+        <div className="grid grid-cols-4 gap-6">
+          {Array(8).fill(null).map((_, i) => (
+            <ArticleSkeleton key={i} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (!articles.length) return null;
 
   return (

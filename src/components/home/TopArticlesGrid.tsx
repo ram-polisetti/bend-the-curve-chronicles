@@ -1,19 +1,26 @@
 
 import { Link } from "react-router-dom";
-
-interface Article {
-  id: string;
-  title: string;
-  subtitle: string | null;
-  hero_image: string | null;
-  views: number;
-}
+import { Article } from "@/types/article";
+import { ArticleSkeleton } from "@/components/ui/article-skeleton";
 
 interface TopArticlesGridProps {
   articles: Article[];
+  isLoading?: boolean;
 }
 
-export const TopArticlesGrid = ({ articles }: TopArticlesGridProps) => {
+export const TopArticlesGrid = ({ articles, isLoading }: TopArticlesGridProps) => {
+  if (isLoading) {
+    return (
+      <div className="col-span-2 grid grid-cols-2 gap-6">
+        {Array(3).fill(null).map((_, i) => (
+          <div key={i} className="border-b border-gray-200 pb-6">
+            <ArticleSkeleton />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="col-span-2 grid grid-cols-2 gap-6">
       {articles.map((article) => (

@@ -1,19 +1,29 @@
 
 import { Link } from "react-router-dom";
-
-interface Article {
-  id: string;
-  title: string;
-  category: string;
-  created_at: string;
-  views: number;
-}
+import { Article } from "@/types/article";
+import { ArticleSkeleton } from "@/components/ui/article-skeleton";
 
 interface TrendingSidebarProps {
   articles: Article[];
+  isLoading?: boolean;
 }
 
-export const TrendingSidebar = ({ articles }: TrendingSidebarProps) => {
+export const TrendingSidebar = ({ articles, isLoading }: TrendingSidebarProps) => {
+  if (isLoading) {
+    return (
+      <div className="border-l border-gray-200 pl-6">
+        <h2 className="font-serif text-2xl mb-6 border-b border-black pb-2">
+          Trending Now
+        </h2>
+        <div className="space-y-6">
+          {Array(4).fill(null).map((_, i) => (
+            <ArticleSkeleton key={i} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="border-l border-gray-200 pl-6">
       <h2 className="font-serif text-2xl mb-6 border-b border-black pb-2">
