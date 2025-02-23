@@ -24,12 +24,14 @@ const Index = () => {
   const { data: articles = [], isLoading, error } = useQuery({
     queryKey: ['articles'],
     queryFn: fetchArticles,
-    onError: (error: Error) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive"
-      });
+    meta: {
+      onError: (error: Error) => {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive"
+        });
+      }
     }
   });
 
