@@ -57,9 +57,13 @@ const Index = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-[2000px] mx-auto">
           <MainHeadline article={mainArticle} isLoading={isLoading} />
-          <div className="grid grid-cols-3 gap-8 mt-8">
-            <TopArticlesGrid articles={topSectionArticles} isLoading={isLoading} />
-            <TrendingSidebar articles={sidebarArticles} isLoading={isLoading} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+            <div className="md:col-span-2">
+              <TopArticlesGrid articles={topSectionArticles} isLoading={isLoading} />
+            </div>
+            <div className="md:col-span-1">
+              <TrendingSidebar articles={sidebarArticles} isLoading={isLoading} />
+            </div>
           </div>
           <MoreStories articles={remainingArticles} isLoading={isLoading} />
         </div>
