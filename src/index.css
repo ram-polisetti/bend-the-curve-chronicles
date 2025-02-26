@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -53,4 +54,9 @@
 
 h2, h3 {
     scroll-margin-top: 1rem; /* Adjust as needed */
+}
+
+/* Add text justification by default */
+p {
+    text-align: justify;
 }
