@@ -36,12 +36,7 @@ export const TopArticlesGrid = ({ articles, isLoading }: TopArticlesGridProps) =
             <h2 className={`font-serif text-2xl mb-3 group-hover:text-gray-800 ${!article.hero_image ? 'mt-0' : ''}`}>
               {article.title}
             </h2>
-            {article.subtitle && (
-              <p className="text-gray-600 mb-3 line-clamp-2">
-                {article.subtitle}
-              </p>
-            )}
-            <p className="text-gray-600 mb-4 line-clamp-3">
+            <p className="text-gray-600 mb-4 line-clamp-4">
               {article.content}
             </p>
             <div className="flex items-center justify-between mt-4">
