@@ -5,10 +5,10 @@ import { Toaster } from "@/components/ui/toaster";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import { NotFound } from "./pages/NotFound";
-import { CreateArticle } from "./pages/CreateArticle";
-import { Auth } from "./pages/Auth";
-import { DynamicArticle } from "./pages/articles/DynamicArticle";
+import NotFound from "./pages/NotFound";
+import CreateArticle from "./pages/CreateArticle";
+import Auth from "./pages/Auth";
+import DynamicArticle from "./pages/articles/DynamicArticle";
 
 // Create a client
 const queryClient = new QueryClient({
