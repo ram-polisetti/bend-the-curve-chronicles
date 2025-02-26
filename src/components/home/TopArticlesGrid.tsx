@@ -33,14 +33,17 @@ export const TopArticlesGrid = ({ articles, isLoading }: TopArticlesGridProps) =
                 className="w-full h-[200px] object-cover rounded-lg mb-4"
               />
             )}
-            <h2 className={`font-serif text-2xl group-hover:text-gray-800 ${!article.hero_image ? 'mt-0' : ''}`}>
+            <h2 className={`font-serif text-2xl mb-3 group-hover:text-gray-800 ${!article.hero_image ? 'mt-0' : ''}`}>
               {article.title}
             </h2>
             {article.subtitle && (
-              <p className="text-gray-600 mt-2 group-hover:text-gray-700">
+              <p className="text-gray-600 mb-3 line-clamp-2">
                 {article.subtitle}
               </p>
             )}
+            <p className="text-gray-600 mb-4 line-clamp-3">
+              {article.content}
+            </p>
             <div className="flex items-center justify-between mt-4">
               <span className="text-sm text-black group-hover:underline">
                 Continue Reading →
